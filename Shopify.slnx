@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/framework/">
+    <Project Path="framework/Shopify.Framework/Shopify.Framework.csproj" Id="2b0c1778-a8d7-4c72-a45f-96cdd5266490" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Domain/" />
+  <Folder Name="/src/Domain/AppService/">
+    <Project Path="src/Domain/AppService/Shopify.Domain.AppService/Shopify.Domain.AppService.csproj" Id="5d39cc63-d97e-4452-9b0e-97a5c6ef3911" />
+  </Folder>
+  <Folder Name="/src/Domain/Core/">
+    <Project Path="src/Domain/Core/Shopify.Domain.Core/Shopify.Domain.Core.csproj" Id="4e4c6deb-09d0-4f1d-953a-c546ca9e08fb" />
+  </Folder>
+  <Folder Name="/src/Domain/Service/">
+    <Project Path="src/Domain/Service/Shopify.Domain.Service/Shopify.Domain.Service.csproj" Id="8cdd8198-024c-4ede-b284-fa640a9cc0dc" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/" />
+  <Folder Name="/src/Infrastructure/DataAccess/">
+    <Project Path="src/Infrastrucure/DataAccess/Shopify.Infa.DataAccess.Repo.EfCore/Shopify.Infa.DataAccess.Repo.EfCore.csproj" Id="81db7fc5-12e5-4e62-970c-7819c91c23df" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/Db/">
+    <Project Path="src/Infrastrucure/Db/Shopify.Infa.Db.SqlServer.EfCore/Shopify.Infa.Db.SqlServer.EfCore.csproj" Id="0c52db4e-bc00-4e36-8789-549853aa5678" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/Presentation/Shopify.Presentation.RazorPages/Shopify.Presentation.RazorPages.csproj" Id="38a972f4-41c6-4fb2-b403-5e4ec994607e" />
+  </Folder>
+</Solution>
