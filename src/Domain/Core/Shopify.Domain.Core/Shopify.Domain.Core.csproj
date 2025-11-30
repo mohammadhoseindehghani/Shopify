@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="CartAgg\Dto\" />
+    <Folder Include="CartAgg\Enums\" />
+    <Folder Include="CartAgg\Service\" />
     <Folder Include="CategoryAgg\Entities\" />
     <Folder Include="CategoryAgg\Enums\" />
     <Folder Include="CategoryAgg\Dto\" />
     <Folder Include="_common\" />
     <Folder Include="OrderAgg\Dto\" />
     <Folder Include="ProductAgg\Dto\" />
-    <Folder Include="ProductAgg\Entities\" />
     <Folder Include="ProductAgg\Enums\" />
     <Folder Include="UserAgg\Dto\" />
     <Folder Include="UserAgg\Enums\" />

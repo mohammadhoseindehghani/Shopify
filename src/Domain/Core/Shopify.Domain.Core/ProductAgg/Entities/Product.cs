@@ -16,4 +16,5 @@ public bool IsSpecial { get; set; }
 public int StockQuantity { get; set; } 
 public int CategoryId { get; set; }
 public Category Category { get; set; }
+public ICollection<ProductAttributeValue> AttributeValues { get; set; }
 }

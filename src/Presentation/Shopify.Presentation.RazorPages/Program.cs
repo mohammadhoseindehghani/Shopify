@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using Shopify.Domain.AppService;
+using Shopify.Domain.Core.CartAgg.AppService;
+using Shopify.Domain.Core.CartAgg.Data;
+using Shopify.Domain.Core.CartAgg.Service;
 using Shopify.Domain.Core.CategoryAgg.AppService;
 using Shopify.Domain.Core.CategoryAgg.Data;
 using Shopify.Domain.Core.CategoryAgg.Service;
@@ -44,6 +47,22 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderItemAppService, OrderItemAppService>();
 builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+
+builder.Services.AddScoped<ICartItemAppService, CartItemAppService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
+builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
+
+builder.Services.AddScoped<ICartAppService, CartAppService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+
+builder.Services.AddScoped<IProductAttributeAppService, ProductAttributeAppService>();
+builder.Services.AddScoped<IProductAttributeService, ProductAttributeService>();
+builder.Services.AddScoped<IProductAttributeRepository, ProductAttributeRepository>();
+
+builder.Services.AddScoped<IProductAttributeValueAppService, ProductAttributeValueAppService>();
+builder.Services.AddScoped<IProductAttributeValueService, ProductAttributeValueService>();
+builder.Services.AddScoped<IProductAttributeValueRepository, ProductAttributeValueRepository>();
 
 
 var app = builder.Build();

@@ -10,8 +10,7 @@ public class Order : BaseEntity
     public User User { get; set; }
 
     public decimal TotalAmount { get; set; } 
-
-    public OrderStatusEnum Status { get; set; } 
-
+    public OrderStatusEnum Status { get; set; }
+    public bool IsFinalized { get; set; } = false; 
     public ICollection<OrderItem> OrderItems { get; set; }
 }

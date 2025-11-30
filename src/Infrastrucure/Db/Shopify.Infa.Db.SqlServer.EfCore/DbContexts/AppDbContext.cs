@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shopify.Domain.Core.CartAgg.Entities;
 using Shopify.Domain.Core.CategoryAgg.Entities;
 using Shopify.Domain.Core.OrderAgg.Entities;
 using Shopify.Domain.Core.ProductAgg.Entities;
@@ -14,6 +15,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<CartItem> CartItems { get; set; }
+    public DbSet<ProductAttribute> ProductAttributes { get; set; }
+    public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
