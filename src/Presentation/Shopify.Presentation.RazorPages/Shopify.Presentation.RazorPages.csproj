@@ -13,4 +13,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\AppService\Shopify.Domain.AppService\Shopify.Domain.AppService.csproj" />
+    <ProjectReference Include="..\..\Domain\Service\Shopify.Domain.Service\Shopify.Domain.Service.csproj" />
+    <ProjectReference Include="..\..\Infrastrucure\DataAccess\Shopify.Infa.DataAccess.Repo.EfCore\Shopify.Infa.DataAccess.Repo.EfCore.csproj" />
+    <ProjectReference Include="..\..\Infrastrucure\Db\Shopify.Infa.Db.SqlServer.EfCore\Shopify.Infa.Db.SqlServer.EfCore.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Domain\Core\Shopify.Domain.Core\Shopify.Domain.Core.csproj" />
+    <ProjectReference Include="..\..\Db\Shopify.Infa.Db.SqlServer.EfCore\Shopify.Infa.Db.SqlServer.EfCore.csproj" />
+  </ItemGroup>
+
 </Project>

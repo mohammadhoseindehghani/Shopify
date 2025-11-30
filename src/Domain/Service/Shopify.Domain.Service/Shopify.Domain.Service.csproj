@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Shopify.Domain.Core\Shopify.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,9 +7,11 @@ public class User : BaseEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string Username { get; set; }
     public string PasswordHash { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
     public string ImgUrl { get; set; }
     public decimal Balance { get; set; }
     public ICollection<Order> Orders { get; set; }
+    public ICollection<OrderItem> OrderItems { get; set; }
 }

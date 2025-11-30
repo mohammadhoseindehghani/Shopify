@@ -9,26 +9,14 @@
   <ItemGroup>
     <Folder Include="CategoryAgg\Entities\" />
     <Folder Include="CategoryAgg\Enums\" />
-    <Folder Include="CategoryAgg\Data\" />
-    <Folder Include="CategoryAgg\AppService\" />
     <Folder Include="CategoryAgg\Dto\" />
-    <Folder Include="CategoryAgg\Service\" />
     <Folder Include="_common\" />
-    <Folder Include="OrderAgg\AppService\" />
-    <Folder Include="OrderAgg\Data\" />
     <Folder Include="OrderAgg\Dto\" />
-    <Folder Include="OrderAgg\Service\" />
-    <Folder Include="ProductAgg\AppService\" />
-    <Folder Include="ProductAgg\Data\" />
     <Folder Include="ProductAgg\Dto\" />
     <Folder Include="ProductAgg\Entities\" />
     <Folder Include="ProductAgg\Enums\" />
-    <Folder Include="ProductAgg\Service\" />
-    <Folder Include="UserAgg\AppService\" />
-    <Folder Include="UserAgg\Data\" />
     <Folder Include="UserAgg\Dto\" />
     <Folder Include="UserAgg\Enums\" />
-    <Folder Include="UserAgg\Service\" />
   </ItemGroup>
 
 </Project>
