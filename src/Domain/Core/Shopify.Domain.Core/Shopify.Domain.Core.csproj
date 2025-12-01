@@ -17,7 +17,6 @@
     <Folder Include="OrderAgg\Dto\" />
     <Folder Include="ProductAgg\Dto\" />
     <Folder Include="ProductAgg\Enums\" />
-    <Folder Include="UserAgg\Dto\" />
     <Folder Include="UserAgg\Enums\" />
   </ItemGroup>
 

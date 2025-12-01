@@ -1,9 +1,64 @@
-﻿using Shopify.Domain.Core.UserAgg.AppService;
+﻿using Shopify.Domain.Core._common;
+using Shopify.Domain.Core.UserAgg.AppService;
+using Shopify.Domain.Core.UserAgg.Dto;
 using Shopify.Domain.Core.UserAgg.Service;
+using Shopify.Framework;
 
 namespace Shopify.Domain.AppService;
 
 public class UserAppService(IUserService userService) : IUserAppService
 {
-    
+    public async Task<Result<UserDto>> GetById(int id, CancellationToken cancellationToken)
+    {
+        var user = await userService.GetById(id,cancellationToken);
+        if (user is null)
+        {
+            return Result<UserDto>.Failure("با این نام کاربری کاربری یافت نشد");
+        }
+
+        return Result<UserDto>.Success(user);
+
+    }
+
+    public async Task<Result<UserDto>> GetByPhone(string phone, CancellationToken cansCancellationToken)
+    {
+        var user = await userService.GetByPhone(phone,cansCancellationToken);
+        if (user is null)
+        {
+            return Result<UserDto>.Failure("با این شماره تلفن کاربری یافت نشد");
+        }
+        return Result<UserDto>.Success(user);
+    }
+
+    public async Task<Result<UserDto>> Login(string phone, string password, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(phone))
+        {
+            return Result<UserDto>.Failure("شماره همراه نمیتواند خالی باشد");
+        }
+        if (phone.Length != 11)
+        {
+            return Result<UserDto>.Failure("شماره همراه باید 11 کاراکتر باشد");
+        }
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            return Result<UserDto>.Failure("رمز عبود نمیتواند خالی باشد");
+        }
+
+
+
+        var user =await userService.GetByPhoneForLogin(phone, cancellationToken);
+        if (user is null)
+        {
+            return Result<UserDto>.Failure("شماره همراه یا پسورد اشتباه می باشد");
+        }
+
+        var verifyPassword = PasswordHasherSha256.VerifyPassword(password, user.PasswordHash);
+        if (!verifyPassword)
+        {
+            return Result<UserDto>.Failure("شماره همراه یا پسورد اشتباه می باشد");
+        }
+
+        return Result<UserDto>.Success(user);
+    }
 }
