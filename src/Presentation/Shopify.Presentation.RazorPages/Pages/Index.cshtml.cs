@@ -1,13 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Shopify.Domain.AppService;
+using Shopify.Domain.Core.CategoryAgg.AppService;
+using Shopify.Domain.Core.CategoryAgg.Dto;
+using Shopify.Domain.Core.ProductAgg.AppService;
+using Shopify.Domain.Core.ProductAgg.Dto;
 
 namespace Shopify.Presentation.RazorPages.Pages
 {
-    public class IndexModel : PageModel
+    public class IndexModel(IProductAppService productAppService, ICategoryAppService categoryAppService) : PageModel
     {
-        public void OnGet()
+        public ICollection<CategoryDto> Categories { get; set; }
+        public ICollection<ProductListDto> ProductList { get; set; }
+        public async Task OnGetAsync(CancellationToken cancellationToken)
         {
-
+            Categories = await categoryAppService.GetAll(cancellationToken);
+            ProductList = await productAppService.GetActiveProducts(cancellationToken);
         }
     }
 }

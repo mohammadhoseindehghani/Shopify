@@ -1,0 +1,68 @@
+﻿@page
+@model Shopify.Presentation.RazorPages.Pages.ProductModel
+@{
+    Layout = "_ShopLayout";
+}
+
+<nav class="bg-white shadow-sm py-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a asp-page="./index" class="fw-bold text-cyan-700 fs-4 text-decoration-none">مکتب‌شاپ</a>
+        <a asp-page="./index" class="btn btn-sm btn-outline-secondary rounded-pill px-3"><i class="bi bi-arrow-right me-1"></i>بازگشت</a>
+    </div>
+</nav>
+
+<div class="container my-4 flex-grow-1">
+    <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-5 bg-gray-50 d-flex align-items-center justify-content-center p-5 position-relative">
+                <img src="https://via.placeholder.com/500x500.png?text=MacBook+Pro" class="img-fluid rounded-4 shadow-sm" alt="Product">
+                <span class="badge bg-green-500 position-absolute top-4 start-4 px-3 py-2 rounded-pill shadow-sm">موجود در انبار</span>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card-body p-5 d-flex flex-column h-100">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb text-sm text-muted">
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-gray-500">کالای دیجیتال</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-gray-500">لپ‌تاپ</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">اپل</li>
+                        </ol>
+                    </nav>
+
+                    <h1 class="display-6 fw-bold text-gray-800 mb-3">@Model.ProductDetail.Title</h1>
+
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="fw-bold text-gray-700">4.8</span>
+                        <span class="text-muted text-sm">(از 120 رای)</span>
+                    </div>
+
+                    <p class="text-gray-600 leading-8 mb-5">
+                        این لپ‌تاپ با تراشه قدرتمند M2 اپل، سرعت پردازش بی‌نظیری را ارائه می‌دهد. صفحه نمایش رتینا، باتری با طول عمر ۲۰ ساعت و طراحی باریک و سبک، آن را به انتخابی ایده‌آل برای حرفه‌ای‌ها تبدیل کرده است.
+                    </p>
+
+                    <div class="mt-auto bg-gray-50 p-4 rounded-4 border border-gray-100">
+                        <div class="d-flex justify-content-between align-items-end mb-4">
+                            <div>
+                                <span class="d-block text-muted text-sm mb-1 text-decoration-line-through">85,000,000 تومان</span>
+                                <span class="d-block fs-2 fw-bold text-cyan-700">@Model.ProductDetail.Price <span class="fs-6 text-muted">تومان</span></span>
+                            </div>
+                            <div class="d-flex align-items-center border bg-white rounded-pill px-2 py-1 shadow-sm">
+                                <button class="btn btn-link text-decoration-none text-dark p-1" onclick="changeQty(-1)"><i class="bi bi-dash"></i></button>
+                                <input type="text" id="qty" value="1" class="form-control border-0 text-center p-0 fw-bold" style="width: 30px;" readonly>
+                                <button class="btn btn-link text-decoration-none text-dark p-1" onclick="changeQty(1)"><i class="bi bi-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn primary-gradient text-white btn-lg rounded-pill shadow-md hover:shadow-lg transition-all d-flex justify-content-center align-items-center">
+                                <i class="bi bi-cart-plus me-2 fs-5"></i> افزودن به سبد خرید
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

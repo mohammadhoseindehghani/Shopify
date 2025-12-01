@@ -1,10 +1,94 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = "_ShopLayout";
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<header class="container mt-4">
+    <div class="rounded-5 primary-gradient p-5 text-white shadow-lg position-relative overflow-hidden">
+        <div class="position-relative z-10">
+            <h1 class="display-5 fw-bold mb-3">تخفیف‌های ویژه فصل</h1>
+            <p class="lead mb-4 opacity-90">بهترین محصولات دیجیتال با گارانتی معتبر و ارسال رایگان</p>
+            <button class="btn btn-light text-cyan-700 rounded-pill px-5 py-2 fw-bold shadow-sm hover:scale-105 transition-transform">مشاهده پیشنهادها</button>
+        </div>
+        <div class="position-absolute top-0 end-0 bg-white opacity-10 rounded-circle" style="width: 300px; height: 300px; margin-top: -50px; margin-right: -50px;"></div>
+    </div>
+</header>
+
+<div class="container my-5 flex-grow-1">
+    <div class="row g-4">
+        <div class="col-lg-3">
+            <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 100px;">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4 text-gray-700"><i class="bi bi-grid me-2"></i>دسته‌بندی‌ها</h5>
+                    <div class="d-flex flex-column gap-2">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <a href="#" class="sidebar-link text-decoration-none text-gray-600 py-2 rounded d-block">@item.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold text-gray-800">محصولات منتخب</h4>
+                <select class="form-select w-auto border-0 shadow-sm bg-white rounded-pill text-sm">
+                    <option>جدیدترین‌ها</option>
+                    <option>ارزان‌ترین</option>
+                    <option>گران‌ترین</option>
+                </select>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+
+                        @foreach (var item in Model.ProductList)
+                        {
+                            <div class="col">
+                                <div class="card h-100 border-0 shadow-sm rounded-4 hover-card overflow-hidden bg-white">
+                                    <div class="position-relative bg-gray-100 p-4 text-center" style="height: 240px;">
+                                        <img src="@item.ImageUrl" class="img-fluid h-100 object-contain mix-blend-multiply" alt="Product">
+                                        <span class="badge bg-red-500 position-absolute top-3 end-3 rounded-pill px-3 shadow-sm">ویژه</span>
+                                    </div>
+                                    <div class="card-body d-flex flex-column p-4">
+                                        <h5 class="card-title fw-bold text-gray-800 fs-6 mb-2">@item.Title</h5>
+                                       @*  <p class="text-muted small mb-3 flex-grow-1">@item.Title</p> *@
+                                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                                            <div class="d-flex flex-column">
+                                                @* <span class="text-decoration-line-through text-gray-400 text-xs">@item.</span> *@
+                                                <span class="fw-bold text-cyan-700 fs-5">@item.Price <span class="fs-7 text-muted">تومان</span></span>
+                                            </div>
+                                            <a asp-page="./product" asp-route-id="@item.Id" class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center border-2" style="width: 40px; height: 40px;">
+                                                <i class="bi bi-arrow-left"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+@*                 <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 hover-card overflow-hidden bg-white">
+                        <div class="position-relative bg-gray-100 p-4 text-center" style="height: 240px;">
+                            <img src="https://via.placeholder.com/300x300.png?text=iPhone+13" class="img-fluid h-100 object-contain mix-blend-multiply" alt="Product">
+                        </div>
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-bold text-gray-800 fs-6 mb-2">آیفون 13 نرمال</h5>
+                            <p class="text-muted small mb-3 flex-grow-1">حافظه 128 گیگابایت، رنگ آبی...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-cyan-700 fs-5">35,000,000 <span class="fs-7 text-muted">تومان</span></span>
+                                </div>
+                                <a href="product-details.html" class="btn btn-outline-info rounded-circle d-flex align-items-center justify-content-center border-2" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-arrow-left"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> *@
+            </div>
+        </div>
+    </div>
 </div>
