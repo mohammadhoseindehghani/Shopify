@@ -1,5 +1,5 @@
-﻿using Shopify.Domain.Core.ProductAgg.Data;
-using Shopify.Domain.Core.ProductAgg.Service;
+﻿using Shopify.Domain.Core.ProductAttributeAgg.Data;
+using Shopify.Domain.Core.ProductAttributeAgg.Service;
 
 namespace Shopify.Domain.Service;
 

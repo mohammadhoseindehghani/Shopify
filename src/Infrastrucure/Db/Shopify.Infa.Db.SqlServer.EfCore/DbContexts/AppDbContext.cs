@@ -3,6 +3,7 @@ using Shopify.Domain.Core.CartAgg.Entities;
 using Shopify.Domain.Core.CategoryAgg.Entities;
 using Shopify.Domain.Core.OrderAgg.Entities;
 using Shopify.Domain.Core.ProductAgg.Entities;
+using Shopify.Domain.Core.ProductAttributeAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Infa.Db.SqlServer.EfCore.EntityConfigurations;
 

@@ -1,6 +1,6 @@
 ﻿using Shopify.Domain.Core._common;
 
-namespace Shopify.Domain.Core.ProductAgg.Entities;
+namespace Shopify.Domain.Core.ProductAttributeAgg.Entities;
 
 public class ProductAttribute : BaseEntity
 {

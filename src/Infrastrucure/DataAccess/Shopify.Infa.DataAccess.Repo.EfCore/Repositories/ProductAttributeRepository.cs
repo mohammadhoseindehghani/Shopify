@@ -1,4 +1,4 @@
-﻿using Shopify.Domain.Core.ProductAgg.Data;
+﻿using Shopify.Domain.Core.ProductAttributeAgg.Data;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 
 namespace Shopify.Infa.DataAccess.Repo.EfCore.Repositories;

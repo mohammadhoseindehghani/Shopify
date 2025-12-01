@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Shopify.Domain.Core.ProductAgg.Entities;
+using Shopify.Domain.Core.ProductAttributeAgg.Entities;
 
 namespace Shopify.Infa.Db.SqlServer.EfCore.EntityConfigurations;
 

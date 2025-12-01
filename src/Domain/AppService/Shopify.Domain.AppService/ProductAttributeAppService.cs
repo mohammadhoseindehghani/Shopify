@@ -1,6 +1,6 @@
-﻿using Shopify.Domain.Core.ProductAgg.AppService;
-using Shopify.Domain.Core.ProductAgg.Entities;
-using Shopify.Domain.Core.ProductAgg.Service;
+﻿using Shopify.Domain.Core.ProductAgg.Entities;
+using Shopify.Domain.Core.ProductAttributeAgg.AppService;
+using Shopify.Domain.Core.ProductAttributeAgg.Service;
 
 namespace Shopify.Domain.AppService;
 

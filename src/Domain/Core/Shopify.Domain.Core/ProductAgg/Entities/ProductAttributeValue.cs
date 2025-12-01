@@ -1,4 +1,5 @@
 ﻿using Shopify.Domain.Core._common;
+using Shopify.Domain.Core.ProductAttributeAgg.Entities;
 
 namespace Shopify.Domain.Core.ProductAgg.Entities;
 
