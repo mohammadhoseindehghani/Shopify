@@ -8,6 +8,21 @@ public class OrderConfigs : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("Orders");
+
+        builder.HasKey(o => o.Id);
+
+        builder.Property(o => o.CreatedAt)
+            .HasDefaultValueSql("GetDate()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(o => o.TotalAmount)
+            .HasColumnType("decimal(18,0)")
+            .IsRequired();
+
+        builder.HasMany(o => o.OrderItems)
+            .WithOne(oi => oi.Order)
+            .HasForeignKey(oi => oi.OrderId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

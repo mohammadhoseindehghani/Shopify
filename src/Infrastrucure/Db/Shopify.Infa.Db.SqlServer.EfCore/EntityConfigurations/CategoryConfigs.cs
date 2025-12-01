@@ -8,6 +8,17 @@ public class CategoryConfigs : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("Categories");
+
+        builder.HasKey(c => c.Id);
+
+        builder.Property(c => c.CreatedAt)
+            .HasDefaultValueSql("GetDate()")
+            .ValueGeneratedOnAdd();
+
+        builder.Property(c => c.Name)
+            .IsRequired()
+            .HasMaxLength(100);
+
     }
 }

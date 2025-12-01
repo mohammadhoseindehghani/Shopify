@@ -8,6 +8,15 @@ public class ProductAttributeConfigs : IEntityTypeConfiguration<ProductAttribute
 {
     public void Configure(EntityTypeBuilder<ProductAttribute> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("ProductAttributes");
+
+        builder.Property(c => c.CreatedAt)
+            .HasDefaultValueSql("GetDate()")
+            .ValueGeneratedOnAdd();
+
+        builder.HasKey(pa => pa.Id);
+        builder.Property(pa => pa.Name)
+            .IsRequired()
+            .HasMaxLength(100);
     }
 }

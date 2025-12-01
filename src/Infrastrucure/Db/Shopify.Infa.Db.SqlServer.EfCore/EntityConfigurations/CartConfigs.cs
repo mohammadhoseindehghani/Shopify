@@ -8,6 +8,17 @@ public class CartConfigs : IEntityTypeConfiguration<Cart>
 {
     public void Configure(EntityTypeBuilder<Cart> builder)
     {
-        throw new NotImplementedException();
+        builder.ToTable("Carts");
+
+        builder.HasKey(c => c.Id);
+
+        builder.Property(c => c.CreatedAt)
+            .HasDefaultValueSql("GetDate()")
+            .ValueGeneratedOnAdd();
+
+        builder.HasMany(c => c.Items)
+            .WithOne(ci => ci.Cart)
+            .HasForeignKey(ci => ci.CartId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
