@@ -1,5 +1,7 @@
-﻿using Shopify.Domain.Core._common;
+﻿using System.Reflection.PortableExecutable;
+using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.OrderAgg.Entities;
+using Shopify.Domain.Core.UserAgg.Enums;
 
 namespace Shopify.Domain.Core.UserAgg.Entities;
 
@@ -12,6 +14,8 @@ public class User : BaseEntity
     public string Phone { get; set; }
     public string ImgUrl { get; set; }
     public decimal Balance { get; set; }
+    public RoleEnum Role { get; set; }
+    public ICollection<Address> Addresses { get; set; }
     public ICollection<Order> Orders { get; set; }
     public ICollection<OrderItem> OrderItems { get; set; }
 }

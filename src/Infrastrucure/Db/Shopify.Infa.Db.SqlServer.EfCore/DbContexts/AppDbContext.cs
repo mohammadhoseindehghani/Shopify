@@ -19,6 +19,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<CartItem> CartItems { get; set; }
     public DbSet<ProductAttribute> ProductAttributes { get; set; }
     public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

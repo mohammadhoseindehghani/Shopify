@@ -64,6 +64,10 @@ builder.Services.AddScoped<IProductAttributeValueAppService, ProductAttributeVal
 builder.Services.AddScoped<IProductAttributeValueService, ProductAttributeValueService>();
 builder.Services.AddScoped<IProductAttributeValueRepository, ProductAttributeValueRepository>();
 
+builder.Services.AddScoped<IAddressAppService, AddressAppService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+
 
 var app = builder.Build();
 
