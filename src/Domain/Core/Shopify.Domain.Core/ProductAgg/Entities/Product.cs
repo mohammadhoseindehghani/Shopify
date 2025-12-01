@@ -9,7 +9,7 @@ public class Product : BaseEntity
 {
 public string Title { get; set; } 
 public string ShortDescription { get; set; } 
-public string ImagePath { get; set; } 
+public string ImageUrl { get; set; } 
 public decimal Price { get; set; }
 public bool IsActive { get; set; } = true;
 public bool IsSpecial { get; set; } 

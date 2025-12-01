@@ -13,7 +13,6 @@
     <Folder Include="CategoryAgg\Entities\" />
     <Folder Include="CategoryAgg\Enums\" />
     <Folder Include="_common\" />
-    <Folder Include="OrderAgg\Dto\" />
     <Folder Include="ProductAgg\Dto\" />
     <Folder Include="ProductAgg\Enums\" />
     <Folder Include="UserAgg\Enums\" />
