@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CartAgg\Dto\" />
     <Folder Include="CartAgg\Enums\" />
     <Folder Include="CartAgg\Service\" />
     <Folder Include="CategoryAgg\Entities\" />
