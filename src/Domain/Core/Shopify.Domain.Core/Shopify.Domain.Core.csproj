@@ -12,7 +12,6 @@
     <Folder Include="CartAgg\Service\" />
     <Folder Include="CategoryAgg\Entities\" />
     <Folder Include="CategoryAgg\Enums\" />
-    <Folder Include="CategoryAgg\Dto\" />
     <Folder Include="_common\" />
     <Folder Include="OrderAgg\Dto\" />
     <Folder Include="ProductAgg\Dto\" />
