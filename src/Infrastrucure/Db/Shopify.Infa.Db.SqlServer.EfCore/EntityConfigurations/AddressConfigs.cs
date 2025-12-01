@@ -55,7 +55,7 @@ public class AddressConfigs : IEntityTypeConfiguration<Address>
                 Street = "Valiasr Street, No. 120",
                 PostalCode = "1111111111",
                 IsDefault = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Address
             {
@@ -67,7 +67,7 @@ public class AddressConfigs : IEntityTypeConfiguration<Address>
                 Street = "Azadi Blvd, No. 45",
                 PostalCode = "2222222222",
                 IsDefault = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Address
             {
@@ -79,7 +79,7 @@ public class AddressConfigs : IEntityTypeConfiguration<Address>
                 Street = "Chaharbagh Abbasi, No. 87",
                 PostalCode = "3333333333",
                 IsDefault = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Address
             {
@@ -91,7 +91,7 @@ public class AddressConfigs : IEntityTypeConfiguration<Address>
                 Street = "Zand Street, No. 51",
                 PostalCode = "4444444444",
                 IsDefault = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Address
             {
@@ -103,7 +103,7 @@ public class AddressConfigs : IEntityTypeConfiguration<Address>
                 Street = "Shariati Street, No. 20",
                 PostalCode = "5555555555",
                 IsDefault = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             }
         );
 

@@ -26,35 +26,35 @@ public class CategoryConfigs : IEntityTypeConfiguration<Category>
                 Id = 1,
                 Name = "Electronics",
                 ParentId = null,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Category
             {
                 Id = 2,
                 Name = "Laptop",
                 ParentId = 1,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Category
             {
                 Id = 3,
                 Name = "Mobile",
                 ParentId = 1,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Category
             {
                 Id = 4,
                 Name = "Headphones",
                 ParentId = 1,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Category
             {
                 Id = 5,
                 Name = "Smart Watch",
                 ParentId = 1,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             }
         );
 

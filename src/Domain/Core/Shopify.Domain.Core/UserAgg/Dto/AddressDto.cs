@@ -7,8 +7,8 @@ public class AddressDto
     public string Province { get; set; }
     public string City { get; set; }
     public string Street { get; set; }
-    public string Plaque { get; set; }
-    public string UnitNumber { get; set; }
+    public int Plaque { get; set; }
+    public int UnitNumber { get; set; }
     public string PostalCode { get; set; }
     public bool IsDefault { get; set; }
 }

@@ -52,6 +52,8 @@ public class UserConfigs : IEntityTypeConfiguration<User>
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", //123456789
                 FirstName = "Admin",
                 LastName = "User",
+                ImgUrl = "default.jpg",
+                CreatedAt = new DateTime(2025, 11, 11),
                 Role = RoleEnum.Admin
             },
             new User
@@ -62,6 +64,8 @@ public class UserConfigs : IEntityTypeConfiguration<User>
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Operator",
                 LastName = "User",
+                ImgUrl = "default.jpg",
+                CreatedAt = new DateTime(2025, 11, 11),
                 Role = RoleEnum.Operator
             },
             new User
@@ -72,6 +76,8 @@ public class UserConfigs : IEntityTypeConfiguration<User>
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Ali",
                 LastName = "Ahmadi",
+                ImgUrl = "default.jpg",
+                CreatedAt = new DateTime(2025, 11, 11),
                 Role = RoleEnum.Customer
             },
             new User
@@ -82,6 +88,8 @@ public class UserConfigs : IEntityTypeConfiguration<User>
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Reza",
                 LastName = "Moradi",
+                ImgUrl = "default.jpg",
+                CreatedAt = new DateTime(2025, 11, 11),
                 Role = RoleEnum.Customer
             },
             new User
@@ -92,6 +100,8 @@ public class UserConfigs : IEntityTypeConfiguration<User>
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Sara",
                 LastName = "Karimi",
+                ImgUrl = "default.jpg",
+                CreatedAt = new DateTime(2025, 11, 11),
                 Role = RoleEnum.Customer
             }
         );

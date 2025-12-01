@@ -63,7 +63,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = true,
         CategoryId = 3,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -76,7 +76,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 3,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -89,7 +89,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = true,
         CategoryId = 2,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -102,7 +102,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 2,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -115,7 +115,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = true,
         CategoryId = 4,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -128,7 +128,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 4,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -141,7 +141,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 5,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -154,7 +154,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = true,
         CategoryId = 5,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -167,7 +167,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 3,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     },
     new Product
     {
@@ -180,7 +180,7 @@ public class ProductConfigs : IEntityTypeConfiguration<Product>
         IsActive = true,
         IsSpecial = false,
         CategoryId = 3,
-        CreatedAt = DateTime.UtcNow
+        CreatedAt = new DateTime(2025, 11, 11),
     });
 
     }

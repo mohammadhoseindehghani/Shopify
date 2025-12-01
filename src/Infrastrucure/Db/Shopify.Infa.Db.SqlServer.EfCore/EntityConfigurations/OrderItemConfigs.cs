@@ -42,7 +42,8 @@ public class OrderItemConfigs : IEntityTypeConfiguration<OrderItem>
                 OrderId = 1,
                 ProductId = 1,
                 Quantity = 1,
-                UnitPrice = 20000000
+                UnitPrice = 20000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new OrderItem
             {
@@ -50,7 +51,8 @@ public class OrderItemConfigs : IEntityTypeConfiguration<OrderItem>
                 OrderId = 1,
                 ProductId = 4,
                 Quantity = 1,
-                UnitPrice = 8000000
+                UnitPrice = 8000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
 
             // Order 2 items
@@ -60,7 +62,8 @@ public class OrderItemConfigs : IEntityTypeConfiguration<OrderItem>
                 OrderId = 2,
                 ProductId = 2,
                 Quantity = 1,
-                UnitPrice = 15000000
+                UnitPrice = 15000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new OrderItem
             {
@@ -68,7 +71,8 @@ public class OrderItemConfigs : IEntityTypeConfiguration<OrderItem>
                 OrderId = 2,
                 ProductId = 10,
                 Quantity = 1,
-                UnitPrice = 500000
+                UnitPrice = 500000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
 
             // Order 3 items
@@ -78,15 +82,17 @@ public class OrderItemConfigs : IEntityTypeConfiguration<OrderItem>
                 OrderId = 3,
                 ProductId = 3,
                 Quantity = 1,
-                UnitPrice = 12000000
+                UnitPrice = 12000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new OrderItem
             {
                 Id = 6,
                 OrderId = 3,
-                ProductId = 15,
+                ProductId = 7,
                 Quantity = 1,
-                UnitPrice = 3000000
+                UnitPrice = 3000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             }
         );
 

@@ -36,7 +36,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 1,
                 ProductAttributeId = 1, // Color
                 Value = "Red",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new ProductAttributeValue
             {
@@ -44,7 +44,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 1,
                 ProductAttributeId = 1, // Color
                 Value = "Blue",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new ProductAttributeValue
             {
@@ -52,7 +52,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 1,
                 ProductAttributeId = 2, // Size
                 Value = "M",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new ProductAttributeValue
             {
@@ -60,7 +60,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 1,
                 ProductAttributeId = 2, // Size
                 Value = "L",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new ProductAttributeValue
             {
@@ -68,7 +68,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 2,
                 ProductAttributeId = 5, // Model
                 Value = "XPS 13",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new ProductAttributeValue
             {
@@ -76,7 +76,7 @@ public class ProductAttributeValueConfigs : IEntityTypeConfiguration<ProductAttr
                 ProductId = 2,
                 ProductAttributeId = 3, // Weight
                 Value = "1.2kg",
-                CreatedAt = DateTime.Now
+                CreatedAt = new DateTime(2025, 11, 11),
             }
         );
 

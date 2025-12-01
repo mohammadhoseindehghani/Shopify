@@ -33,8 +33,8 @@ public class OrderConfigs : IEntityTypeConfiguration<Order>
                 UserId = 3, // User1
                 Status = OrderStatusEnum.Processing,
                 IsFinalized = true,
-                TotalAmount = 28000000, 
-                CreatedAt = DateTime.UtcNow
+                TotalAmount = 28000000,
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Order
             {
@@ -43,7 +43,7 @@ public class OrderConfigs : IEntityTypeConfiguration<Order>
                 Status = OrderStatusEnum.Completed,
                 IsFinalized = true,
                 TotalAmount = 15500000,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             },
             new Order
             {
@@ -52,7 +52,7 @@ public class OrderConfigs : IEntityTypeConfiguration<Order>
                 Status = OrderStatusEnum.Processing,
                 IsFinalized = false,
                 TotalAmount = 9000000,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2025, 11, 11),
             }
         );
 
