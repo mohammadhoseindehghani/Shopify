@@ -20,5 +20,45 @@ public class CategoryConfigs : IEntityTypeConfiguration<Category>
             .IsRequired()
             .HasMaxLength(100);
 
+        builder.HasData(
+            new Category
+            {
+                Id = 1,
+                Name = "Electronics",
+                ParentId = null,
+                CreatedAt = DateTime.UtcNow
+            },
+            new Category
+            {
+                Id = 2,
+                Name = "Laptop",
+                ParentId = 1,
+                CreatedAt = DateTime.UtcNow
+            },
+            new Category
+            {
+                Id = 3,
+                Name = "Mobile",
+                ParentId = 1,
+                CreatedAt = DateTime.UtcNow
+            },
+            new Category
+            {
+                Id = 4,
+                Name = "Headphones",
+                ParentId = 1,
+                CreatedAt = DateTime.UtcNow
+            },
+            new Category
+            {
+                Id = 5,
+                Name = "Smart Watch",
+                ParentId = 1,
+                CreatedAt = DateTime.UtcNow
+            }
+        );
+
+
+
     }
 }
