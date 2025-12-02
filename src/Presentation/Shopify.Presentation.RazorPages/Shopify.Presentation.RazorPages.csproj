@@ -20,4 +20,9 @@
     <ProjectReference Include="..\..\Infrastrucure\Db\Shopify.Infa.Db.SqlServer.EfCore\Shopify.Infa.Db.SqlServer.EfCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\Users\" />
+    <Folder Include="wwwroot\Images\Products\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Shopify.Domain.AppService;
 using Shopify.Domain.Core.CartAgg.AppService;
@@ -72,6 +73,17 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";          
+        options.AccessDeniedPath = "/AccessDenied"; 
+        options.ExpireTimeSpan = TimeSpan.FromDays(30); 
+    });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -82,10 +94,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

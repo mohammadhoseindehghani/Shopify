@@ -16,20 +16,20 @@
 
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
             <div class="card-body p-4 p-md-5">
-                <form action="#" method="POST">
+                <form  method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label text-gray-600 text-sm fw-bold">نام کاربری</label>
+                        <label asp-for="@Model.Phone" class="form-label text-gray-600 text-sm fw-bold">شماره همراه</label>
                         <div class="input-group">
                             <span class="input-group-text bg-gray-50 border-end-0"><i class="bi bi-envelope text-gray-400"></i></span>
-                            <input type="text" class="form-control bg-gray-50 border-start-0" id="username" placeholder="user123" required>
+                            <input type="text" class="form-control bg-gray-50 border-start-0" asp-for="@Model.Phone" placeholder="user123" required>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label text-gray-600 text-sm fw-bold">رمز عبور</label>
+                        <label asp-for="@Model.Password" class="form-label text-gray-600 text-sm fw-bold">رمز عبور</label>
                         <div class="input-group">
                             <span class="input-group-text bg-gray-50 border-end-0"><i class="bi bi-lock text-gray-400"></i></span>
-                            <input type="password" class="form-control bg-gray-50 border-start-0 border-end-0" id="password" placeholder="••••••••" required>
+                            <input type="password" class="form-control bg-gray-50 border-start-0 border-end-0" asp-for="@Model.Password" placeholder="••••••••" required>
                             <button class="btn btn-outline-secondary bg-gray-50 border-start-0 text-gray-400" type="button" id="togglePassword">
                                 <i class="bi bi-eye"></i>
                             </button>
@@ -43,6 +43,7 @@
                         </div>
                         <a href="#" class="text-decoration-none text-cyan-600 text-sm fw-bold hover:text-cyan-800">رمز را فراموش کردم</a>
                     </div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <button type="submit" class="btn primary-gradient text-white w-100 rounded-pill py-2 fw-bold shadow-md hover:shadow-lg transition-all mb-3">
                         ورود به سیستم

@@ -36,9 +36,14 @@
                         <span class="fw-bold text-gray-700">4.8</span>
                         <span class="text-muted text-sm">(از 120 رای)</span>
                     </div>
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <span class="fw-bold text-gray-700">@Model.ProductDetail.StockQuantity</span>
+                        <span class="text-muted text-sm">موجودی</span>
+                    </div>
 
                     <p class="text-gray-600 leading-8 mb-5">
-                        این لپ‌تاپ با تراشه قدرتمند M2 اپل، سرعت پردازش بی‌نظیری را ارائه می‌دهد. صفحه نمایش رتینا، باتری با طول عمر ۲۰ ساعت و طراحی باریک و سبک، آن را به انتخابی ایده‌آل برای حرفه‌ای‌ها تبدیل کرده است.
+                       @Model.ProductDetail.ShortDescription 
                     </p>
 
                     <div class="mt-auto bg-gray-50 p-4 rounded-4 border border-gray-100">
@@ -55,14 +60,55 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn primary-gradient text-white btn-lg rounded-pill shadow-md hover:shadow-lg transition-all d-flex justify-content-center align-items-center">
+                            <button id="addToCartBtn" 
+                                    data-id="@Model.ProductDetail.Id"
+                                    data-title="@Model.ProductDetail.Title"
+                                    data-price="@Model.ProductDetail.Price" 
+                                    data-image="@Model.ProductDetail.ImageUrl"
+                                    onclick="addToCart()"
+                                    class="btn primary-gradient text-white btn-lg rounded-pill shadow-md hover:shadow-lg transition-all d-flex justify-content-center align-items-center">
                                 <i class="bi bi-cart-plus me-2 fs-5"></i> افزودن به سبد خرید
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+                                    
+@section Scripts {
+    <script>
+        function changeQty(amount) {
+            const input = document.getElementById('qty');
+            let val = parseInt(input.value);
+            if (val + amount >= 1) {
+                input.value = val + amount;
+            }
+        }
+
+        function addToCart() {
+            const btn = document.getElementById('addToCartBtn');
+            const qtyInput = document.getElementById('qty');
+            const product = {
+                id: btn.getAttribute('data-id'),
+                title: btn.getAttribute('data-title'),
+                price: parseInt(btn.getAttribute('data-price')),
+                image: btn.getAttribute('data-image'),
+                quantity: parseInt(qtyInput.value)
+            };
+
+            let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
+            const existingItem = cart.find(x => x.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity += product.quantity;
+            } else {
+                cart.push(product);
+            }
+            localStorage.setItem('shopCart', JSON.stringify(cart));
+            alert('محصول با موفقیت به سبد خرید اضافه شد');
+        }
+    </script>
+}
