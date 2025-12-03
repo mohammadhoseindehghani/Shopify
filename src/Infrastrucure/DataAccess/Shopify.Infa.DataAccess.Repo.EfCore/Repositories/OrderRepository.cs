@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shopify.Domain.Core.OrderAgg.Data;
 using Shopify.Domain.Core.OrderAgg.Dto;
+using Shopify.Domain.Core.OrderAgg.Entities;
 using Shopify.Domain.Core.OrderAgg.Enums;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 
@@ -8,6 +9,14 @@ namespace Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
 
 public class OrderRepository(AppDbContext context) : IOrderRepository
 {
+    public async Task Add(Order order, CancellationToken cancellationToken)
+    {
+        await context.Orders.AddAsync(order, cancellationToken);
+    }
+    public async Task SaveChanges(CancellationToken cancellationToken)
+    {
+        await context.SaveChangesAsync(cancellationToken);
+    }
     public async Task<OrderDto?> GetById(int id, CancellationToken cancellationToken)
     {
         return await context.Orders.Where(c => c.Id == id)

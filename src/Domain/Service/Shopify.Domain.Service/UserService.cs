@@ -6,6 +6,10 @@ namespace Shopify.Domain.Service;
 
 public class UserService(IUserRepository userRepository) : IUserService
 {
+    public async Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken)
+    {
+        await userRepository.DeductBalance(userId, amount, cancellationToken);
+    }
     public async Task<UserDto?> GetById(int id, CancellationToken cancellationToken)
     {
         return await userRepository.GetById(id, cancellationToken);

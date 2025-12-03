@@ -7,4 +7,6 @@ public interface IUserRepository
     Task<UserDto?> GetById(int id,CancellationToken cancellationToken);
     Task<UserDto?> GetByPhone(string phone , CancellationToken cansCancellationToken);
     Task<UserWithPasswordDto?> GetByUserNameForLogin(string username, CancellationToken cancellationToken);
+    Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken);
+
 }

@@ -133,4 +133,15 @@ public class ProductRepository(AppDbContext context) : IProductRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken)
+    {
+        await context.Products
+            .Where(p => p.Id == productId)
+            .ExecuteUpdateAsync(
+                setter => setter
+                    .SetProperty(p => p.StockQuantity, p => p.StockQuantity - quantity),
+                cancellationToken
+            );
+    }
+
 }

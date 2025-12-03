@@ -6,6 +6,7 @@ namespace Shopify.Domain.Core.OrderAgg.AppService;
 
 public interface IOrderAppService
 {
+    Task<Result<bool>> FinalizeOrder(int userId, CancellationToken cancellationToken);
     Task<Result<OrderDto>> GetById(int id, CancellationToken cancellationToken);
     Task<Result<OrderDto>> GetUserActiveOrder(int userId, CancellationToken cancellationToken);
     Task<ICollection<OrderDto>> GetUserOrders(int userId, CancellationToken cancellationToken);

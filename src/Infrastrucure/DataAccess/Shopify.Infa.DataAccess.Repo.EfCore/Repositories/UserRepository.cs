@@ -62,4 +62,16 @@ public class UserRepository(AppDbContext context) : IUserRepository
             })
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken)
+    {
+        await context.Users
+            .Where(u => u.Id == userId)
+            .ExecuteUpdateAsync(
+                setter => setter
+                    .SetProperty(u => u.Balance, u => u.Balance - amount),
+                cancellationToken
+            );
+    }
+
 }

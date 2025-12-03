@@ -45,4 +45,9 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     {
         return await productRepository.GetProductsWithAttributes(cancellationToken);
     }
+
+    public async Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken)
+    {
+        await productRepository.ReduceStock(productId, quantity, cancellationToken);
+    }
 }

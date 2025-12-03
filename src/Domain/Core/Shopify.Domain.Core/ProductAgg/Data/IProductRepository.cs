@@ -12,4 +12,5 @@ public interface IProductRepository
     Task<ICollection<ProductListDto>> SearchProducts(string keyword, CancellationToken cancellationToken);
     Task<bool> ExistsByTitle(string title, CancellationToken cancellationToken);
     Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken);
+    Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken);
 }

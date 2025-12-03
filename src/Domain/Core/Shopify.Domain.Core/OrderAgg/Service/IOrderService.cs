@@ -1,10 +1,14 @@
 ﻿using Shopify.Domain.Core.OrderAgg.Dto;
+using Shopify.Domain.Core.OrderAgg.Entities;
 using Shopify.Domain.Core.OrderAgg.Enums;
 
 namespace Shopify.Domain.Core.OrderAgg.Service;
 
 public interface IOrderService
 {
+    Task CreateOrder(int userId, decimal totalAmount, List<OrderItemDto> items, CancellationToken cancellationToken);
+    Task Add(Order order, CancellationToken cancellationToken);
+    Task SaveChanges(CancellationToken cancellationToken);
     Task<OrderDto?> GetById(int id, CancellationToken cancellationToken);
     Task<OrderDto?> GetUserActiveOrder(int userId, CancellationToken cancellationToken);
     Task<ICollection<OrderDto>> GetUserOrders(int userId, CancellationToken cancellationToken);

@@ -5,27 +5,79 @@
 }
 
 <div class="container mb-5 flex-grow-1 mt-5">
-        
     <div class="row g-4">
         <div class="col-lg-8">
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-3">
                 <div class="card-header bg-white py-3 border-bottom-0">
-                    <h6 class="mb-0 fw-bold text-gray-700">اقلام انتخابی (۲ کالا)</h6>
+                    <h6 class="mb-0 fw-bold text-gray-700">اقلام انتخابی (@(Model.Cart.Items?.Count ?? 0) کالا)</h6>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-middle mb-0">
                         <thead class="bg-gray-50 text-secondary text-sm">
                         </thead>
-                        <tbody id="cartTableBody">
+                        <tbody>
+                            @if (Model.Cart.Items != null && Model.Cart.Items.Any())
+                            {
+                                @foreach (var item in Model.Cart.Items)
+                                {
+                                    <tr>
+                                        <td class="px-4 py-4">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@item.ImageUrl" class="rounded-3 border me-3" width="70" height="70" alt="product">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold text-gray-800">@item.ProductTitle</h6>
+                                                    <span class="text-cyan-700 fw-bold text-sm">@item.UnitPrice.ToString("N0") تومان</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="d-inline-flex border rounded-pill px-2 py-1 align-items-center bg-white shadow-sm">
+                                                <form method="post" asp-page-handler="Decrease" class="d-inline">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="btn btn-sm p-0 text-muted"><i class="bi bi-dash"></i></button>
+                                                </form>
+
+                                                <span class="mx-3 fw-bold text-sm">@item.Quantity</span>
+
+                                                <form method="post" asp-page-handler="Increase" class="d-inline">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button type="submit" class="btn btn-sm p-0 text-muted"><i class="bi bi-plus"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="text-center fw-bold text-gray-700">
+                                            @((item.Quantity * item.UnitPrice).ToString("N0"))
+                                        </td>
+                                        <td class="text-end px-4">
+                                            <form method="post" asp-page-handler="Remove">
+                                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                                <button type="submit" class="btn btn-link text-danger p-0"><i class="bi bi-x-circle fs-5"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">سبد خرید شما خالی است</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-
-                    <span id="totalPriceDisplay" class="fw-bold fs-5 text-gray-900">0 <span class="fs-7 text-muted fw-normal">تومان</span></span>
                 </div>
+
+                @if (Model.Cart.Items != null && Model.Cart.Items.Any())
+                {
+                    <div class="p-4 border-top">
+                        <span class="fw-bold fs-5 text-gray-900">
+                            @Model.TotalAmount.ToString("N0") <span class="fs-7 text-muted fw-normal">تومان</span>
+                        </span>
+                    </div>
+                }
             </div>
-            
-           
-            <a href="index.html" class="text-decoration-none text-muted text-sm fw-bold">
+
+            <a href="/Index" class="text-decoration-none text-muted text-sm fw-bold">
                 <i class="bi bi-arrow-right me-1"></i> بازگشت به فروشگاه و خرید بیشتر
             </a>
         </div>
@@ -36,24 +88,29 @@
                     <h5 class="fw-bold mb-4 text-gray-800">خلاصه سبد</h5>
 
                     <div class="d-flex justify-content-between mb-3 text-secondary text-sm">
-                        <span>قیمت کالاها (۳)</span>
-                        <span>86,500,000 تومان</span>
+                        <span>تعداد اقلام</span>
+                        <span>@(Model.Cart.Items?.Count ?? 0)</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-3 text-secondary text-sm">
-                        <span>سود شما از خرید</span>
-                        <span class="text-danger">0 تومان</span>
-                    </div>
-                    
+
                     <hr class="border-dashed my-3">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <span class="fw-bold fs-6">جمع سبد خرید</span>
-                        <span class="fw-bold fs-5 text-gray-900">86,500,000 <span class="fs-7 text-muted fw-normal">تومان</span></span>
+                        <span class="fw-bold fs-5 text-gray-900">@Model.TotalAmount.ToString("N0") <span class="fs-7 text-muted fw-normal">تومان</span></span>
                     </div>
 
-                    <a href="checkout.html" class="btn primary-gradient text-white w-100 rounded-pill py-3 fw-bold shadow-md hover:shadow-lg transition-all d-flex justify-content-center align-items-center">
-                        ادامه جهت تسویه حساب <i class="bi bi-arrow-left ms-2"></i>
-                    </a>
+                    @if (Model.Cart.Items != null && Model.Cart.Items.Any())
+                    {
+                        <a href="/Checkout" class="btn primary-gradient text-white w-100 rounded-pill py-3 fw-bold shadow-md hover:shadow-lg transition-all d-flex justify-content-center align-items-center">
+                            ادامه جهت تسویه حساب <i class="bi bi-arrow-left ms-2"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <button disabled class="btn btn-secondary w-100 rounded-pill py-3 fw-bold">
+                            سبد خرید خالی است
+                        </button>
+                    }
 
                     <p class="text-muted text-center text-xs mt-3 mb-0">
                         هزینه ارسال در مرحله بعد محاسبه می‌شود.
@@ -63,80 +120,3 @@
         </div>
     </div>
 </div>
-
-                    
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            renderCart();
-        });
-
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        function renderCart() {
-            const cart = JSON.parse(localStorage.getItem('shopCart')) || [];
-            const tbody = document.getElementById('cartTableBody');
-            const totalPriceEl = document.getElementById('totalPriceDisplay');
-
-            tbody.innerHTML = ''; 
-            let grandTotal = 0;
-
-            if (cart.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-5">سبد خرید شما خالی است</td></tr>';
-                totalPriceEl.innerHTML = '0 تومان';
-                return;
-            }
-
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                grandTotal += itemTotal;
-
-                const row = `
-                    <tr>
-                        <td class="px-4 py-4">
-                            <div class="d-flex align-items-center">
-                                <img src="${item.image}" class="rounded-3 border me-3" width="70" height="70">
-                                <div>
-                                    <h6 class="mb-1 fw-bold text-gray-800">${item.title}</h6>
-                                    <span class="text-cyan-700 fw-bold text-sm">${formatNumber(item.price)} تومان</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="d-inline-flex border rounded-pill px-2 py-1 align-items-center bg-white shadow-sm">
-                                <button onclick="updateQty(${index}, -1)" class="btn btn-sm p-0 text-muted"><i class="bi bi-dash"></i></button>
-                                <span class="mx-3 fw-bold text-sm">${item.quantity}</span>
-                                <button onclick="updateQty(${index}, 1)" class="btn btn-sm p-0 text-muted"><i class="bi bi-plus"></i></button>
-                            </div>
-                        </td>
-                        <td class="text-center fw-bold text-gray-700">${formatNumber(itemTotal)}</td>
-                        <td class="text-end px-4">
-                            <button onclick="removeItem(${index})" class="btn btn-link text-danger p-0"><i class="bi bi-x-circle fs-5"></i></button>
-                        </td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-
-            totalPriceEl.innerHTML = `${formatNumber(grandTotal)} <span class="fs-7 text-muted fw-normal">تومان</span>`;
-        }
-
-        function updateQty(index, change) {
-            let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
-            if (cart[index].quantity + change > 0) {
-                cart[index].quantity += change;
-                localStorage.setItem('shopCart', JSON.stringify(cart));
-                renderCart();
-            }
-        }
-
-        function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('shopCart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('shopCart', JSON.stringify(cart));
-            renderCart();
-        }
-    </script>
-}
