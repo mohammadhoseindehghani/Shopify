@@ -1,4 +1,58 @@
 ﻿@page
 @model Shopify.Presentation.RazorPages.Pages.RegisterModel
 @{
+    Layout = "Shared/_ShopLayout";
 }
+<div class="container d-flex justify-content-center py-5">
+    <div class="auth-card">
+
+        <div class="text-center mb-4">
+            <h4 class="fw-bold text-gray-800">ایجاد حساب کاربری</h4>
+            <p class="text-muted text-sm">به جمع مشتریان مکتب‌شاپ بپیوندید</p>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
+            <div class="card-body p-4 p-md-5">
+                <form action="#" method="POST">
+
+                    <div class="mb-3">
+                        <label class="form-label text-gray-600 text-sm fw-bold">نام کاربری</label>
+                        <input type="text" class="form-control bg-gray-50" placeholder="مثلا: ali_rezaei" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-gray-600 text-sm fw-bold">ایمیل (اختیاری)</label>
+                        <input type="email" class="form-control bg-gray-50" placeholder="name@example.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-gray-600 text-sm fw-bold">رمز عبور</label>
+                        <input type="password" class="form-control bg-gray-50" required>
+                        <div class="form-text text-xs text-muted">حداقل ۶ کاراکتر</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-gray-600 text-sm fw-bold">تکرار رمز عبور</label>
+                        <input type="password" class="form-control bg-gray-50" required>
+                    </div>
+
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="terms" required>
+                        <label class="form-check-label text-sm text-gray-600" for="terms">
+                            <a href="#" class="text-cyan-700 text-decoration-none">قوانین و مقررات</a> را می‌پذیرم.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn primary-gradient text-white w-100 rounded-pill py-2 fw-bold shadow-md hover:shadow-lg transition-all mb-3">
+                        ثبت‌نام نهایی
+                    </button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <span class="text-muted text-sm">قبلاً ثبت‌نام کرده‌اید؟</span>
+                    <a href="login.html" class="text-cyan-700 fw-bold text-decoration-none ms-1">وارد شوید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

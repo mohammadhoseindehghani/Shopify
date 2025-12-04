@@ -13,6 +13,27 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
     {
         await context.Orders.AddAsync(order, cancellationToken);
     }
+
+    public async Task CreateOrder(int userId, decimal totalAmount, List<OrderItemDto> items, CancellationToken cancellationToken)
+    {
+        var order = new Order
+        {
+            UserId = userId,
+            TotalAmount = totalAmount,
+            Status = OrderStatusEnum.Processing,
+            IsFinalized = true,
+            OrderItems = items.Select(i => new OrderItem
+            {
+                ProductId = i.ProductId,
+                Quantity = i.Quantity,
+                UnitPrice = i.UnitPrice
+            }).ToList()
+        };
+
+         await context.AddAsync(order, cancellationToken);
+         await context.SaveChangesAsync(cancellationToken);
+    }
+
     public async Task SaveChanges(CancellationToken cancellationToken)
     {
         await context.SaveChangesAsync(cancellationToken);

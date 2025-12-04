@@ -7,6 +7,7 @@ namespace Shopify.Domain.Core.OrderAgg.Data;
 public interface IOrderRepository
 {
     Task Add(Order order, CancellationToken cancellationToken);
+    Task CreateOrder(int userId, decimal totalAmount, List<OrderItemDto> items, CancellationToken cancellationToken);
     Task SaveChanges(CancellationToken cancellationToken);
     Task<OrderDto?> GetById(int id, CancellationToken cancellationToken);
     Task<OrderDto?> GetUserActiveOrder(int userId, CancellationToken cancellationToken);

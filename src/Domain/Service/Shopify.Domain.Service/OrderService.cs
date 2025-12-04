@@ -8,24 +8,9 @@ namespace Shopify.Domain.Service;
 
 public class OrderService(IOrderRepository orderRepository) : IOrderService
 {
-    public async Task CreateOrder(int userId, decimal totalAmount, List<OrderItemDto> items, CancellationToken ct)
+    public async Task CreateOrder(int userId, decimal totalAmount, List<OrderItemDto> items, CancellationToken cancellationToken)
     {
-        var order = new Order
-        {
-            UserId = userId,
-            TotalAmount = totalAmount,
-            Status = OrderStatusEnum.Processing,
-            IsFinalized = true,
-            OrderItems = items.Select(i => new OrderItem
-            {
-                ProductId = i.ProductId,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList()
-        };
-
-        await orderRepository.Add(order, ct);
-        await orderRepository.SaveChanges(ct);
+        await orderRepository.CreateOrder(userId, totalAmount, items, cancellationToken);
     }
 
     public async Task Add(Order order, CancellationToken cancellationToken)
@@ -43,33 +28,30 @@ public class OrderService(IOrderRepository orderRepository) : IOrderService
         return await orderRepository.GetById(id, cancellationToken);
     }
 
-    public Task<OrderDto?> GetUserActiveOrder(int userId, CancellationToken cancellationToken)
+    public async Task<OrderDto?> GetUserActiveOrder(int userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await orderRepository.GetUserActiveOrder(userId, cancellationToken);
     }
 
-    public Task<ICollection<OrderDto>> GetUserOrders(int userId, CancellationToken cancellationToken)
+    public async Task<ICollection<OrderDto>> GetUserOrders(int userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await orderRepository.GetUserOrders(userId, cancellationToken);
     }
 
-    public Task<ICollection<OrderDto>> GetAll(CancellationToken cancellationToken)
+    public async Task<ICollection<OrderDto>> GetAll(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await orderRepository.GetAll(cancellationToken);
     }
 
-    public Task<ICollection<OrderDto>> GetOrdersByStatus(OrderStatusEnum status, CancellationToken cancellationToken)
+    public async Task<ICollection<OrderDto>> GetOrdersByStatus(OrderStatusEnum status, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await orderRepository.GetOrdersByStatus(status, cancellationToken);
     }
 
-    public Task<ICollection<OrderItemDto>> GetOrderItems(int orderId, CancellationToken cancellationToken)
+    public async Task<ICollection<OrderItemDto>> GetOrderItems(int orderId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await orderRepository.GetOrderItems(orderId, cancellationToken);
     }
 
-    public Task<decimal> GetTotalSales(DateTime from, DateTime to, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+
 }

@@ -5,6 +5,7 @@ using Shopify.Domain.Core.CategoryAgg.AppService;
 using Shopify.Domain.Core.CategoryAgg.Dto;
 using Shopify.Domain.Core.ProductAgg.AppService;
 using Shopify.Domain.Core.ProductAgg.Dto;
+using Shopify.Domain.Core.ProductAgg.Entities;
 
 namespace Shopify.Presentation.RazorPages.Pages
 {
@@ -16,6 +17,12 @@ namespace Shopify.Presentation.RazorPages.Pages
         {
             Categories = await categoryAppService.GetAll(cancellationToken);
             ProductList = await productAppService.GetActiveProducts(cancellationToken);
+        }
+
+        public async Task OnGetCategoryFilterPostAsync(int productId, CancellationToken cancellationToken)
+        {
+            Categories = await categoryAppService.GetAll( cancellationToken);
+            ProductList = await productAppService.GetProductsByCategory(productId, cancellationToken);
         }
     }
 }
