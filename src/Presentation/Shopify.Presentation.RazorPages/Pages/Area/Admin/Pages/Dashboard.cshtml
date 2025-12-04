@@ -1,0 +1,109 @@
+﻿@page "/admin/dashboard"
+@model Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages.DashboardModel
+@{
+    Layout = "Admin/Shared/_AdminLayout";
+}
+<div class="container-fluid p-4">
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 bg-primary text-white stat-card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-white-50 small mb-1">فروش کل</h6>
+                            <h3 class="fw-bold mb-0">125 م‌ت</h3>
+                        </div>
+                        <i class="bi bi-currency-dollar fs-1 opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 bg-white stat-card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted small mb-1">سفارشات جدید</h6>
+                            <h3 class="fw-bold text-gray-800 mb-0">12</h3>
+                        </div>
+                        <div class="bg-indigo-100 text-indigo-600 rounded-3 p-2">
+                            <i class="bi bi-bag fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 bg-white stat-card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted small mb-1">تعداد کاربران</h6>
+                            <h3 class="fw-bold text-gray-800 mb-0">450</h3>
+                        </div>
+                        <div class="bg-green-100 text-green-600 rounded-3 p-2">
+                            <i class="bi bi-people fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 bg-white stat-card h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted small mb-1">محصولات</h6>
+                            <h3 class="fw-bold text-gray-800 mb-0">85</h3>
+                        </div>
+                        <div class="bg-orange-100 text-orange-600 rounded-3 p-2">
+                            <i class="bi bi-box fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h6 class="mb-0 fw-bold">آخرین سفارشات ثبت شده</h6>
+            <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">مشاهده همه</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0 table-hover">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">شناسه</th>
+                        <th>کاربر</th>
+                        <th>تاریخ</th>
+                        <th>مبلغ کل</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-4 fw-bold">#ORD-1024</td>
+                        <td>علی محمدی</td>
+                        <td class="text-muted text-sm">1403/09/08</td>
+                        <td class="fw-bold">2,500,000</td>
+                        <td><span class="badge bg-success-subtle text-success px-3 rounded-pill">پرداخت شده</span></td>
+                        <td><button class="btn btn-sm btn-light border"><i class="bi bi-eye"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-bold">#ORD-1023</td>
+                        <td>سارا امیری</td>
+                        <td class="text-muted text-sm">1403/09/08</td>
+                        <td class="fw-bold">850,000</td>
+                        <td><span class="badge bg-warning-subtle text-warning px-3 rounded-pill">در انتظار</span></td>
+                        <td><button class="btn btn-sm btn-light border"><i class="bi bi-eye"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</div>

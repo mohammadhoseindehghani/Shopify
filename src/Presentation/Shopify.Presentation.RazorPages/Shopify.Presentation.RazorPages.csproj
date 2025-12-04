@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\Users\" />
+    <Folder Include="Pages\Area\User\" />
   </ItemGroup>
 
 </Project>
