@@ -39,6 +39,9 @@ namespace Shopify.Presentation.RazorPages.Pages
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+
+
             int guestId = 0;
             if (Request.Cookies.TryGetValue("CartGuestId", out string? cookieValue))
             {
