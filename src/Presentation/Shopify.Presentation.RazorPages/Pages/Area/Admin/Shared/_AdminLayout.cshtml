@@ -59,6 +59,7 @@
         .toggled #sidebar-wrapper {
             margin-right: -260px;
         }
+
         media (max-width: 768px) {
             #sidebar-wrapper {
                 margin-right: -260px;
@@ -79,14 +80,17 @@
                 <span class="fw-bold fs-5">ادمین مکتب</span>
             </div>
             <div class="list-group list-group-flush mt-3 gap-1">
-                <a href="admin-dashboard.html" class="list-group-item list-group-item-action active">
+                <a href="#" class="list-group-item list-group-item-action active">
                     <i class="bi bi-grid-fill me-2"></i> داشبورد
                 </a>
-                <a href="admin-products.html" class="list-group-item list-group-item-action">
+                <a href="#" class="list-group-item list-group-item-action">
                     <i class="bi bi-box-seam me-2"></i> محصولات
                 </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     <i class="bi bi-tags me-2"></i> دسته‌بندی‌ها
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    <i class="bi bi-kanban me-2"></i> ویژگی ها
                 </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     <i class="bi bi-cart-check me-2"></i> سفارشات <span class="badge bg-danger rounded-pill float-end text-xs mt-1">5</span>
@@ -99,27 +103,29 @@
                 </a>
             </div>
         </div>
+   
 
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm px-4 py-3">
-                <button class="btn btn-outline-secondary btn-sm" id="menu-toggle"><i class="bi bi-list fs-5"></i></button>
-                <h5 class="ms-3 mb-0 text-secondary fw-bold">داشبورد مدیریت</h5>
-                <div class="ms-auto d-flex align-items-center">
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="dropdownUser1" data-bs-toggle="dropdown">
-                            <img src="https://via.placeholder.com/40" alt="Admin" class="rounded-circle ms-2 border" width="40" height="40">
-                            <span class="fw-bold small">مدیر سیستم</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><a class="dropdown-item" href="#">پروفایل</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#">خروج</a></li>
-                        </ul>
-                    </div>
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm px-4 py-3">
+            <button class="btn btn-outline-secondary btn-sm" id="menu-toggle"><i class="bi bi-list fs-5"></i></button>
+            <h5 class="ms-3 mb-0 text-secondary fw-bold">داشبورد مدیریت</h5>
+            <div class="ms-auto d-flex align-items-center">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="dropdownUser1" data-bs-toggle="dropdown">
+                        <img src="https://via.placeholder.com/40" alt="Admin" class="rounded-circle ms-2 border" width="40" height="40">
+                        <span class="fw-bold small">مدیر سیستم</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item" href="#">پروفایل</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#">خروج</a></li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-@RenderBody()
+        @RenderBody()
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

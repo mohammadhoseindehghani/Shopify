@@ -1,0 +1,69 @@
+﻿@page "/admin/categories"
+@model Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages.CategoriesModel
+@{
+    Layout = "Admin/Shared/_AdminLayout";
+}
+
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-gray-800">دسته‌بندی محصولات</h4>
+        <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+            <i class="bi bi-plus-lg me-1"></i> افزودن دسته جدید
+        </button>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light text-secondary">
+                                <tr>
+                                    <th class="ps-4 py-3">نام دسته‌بندی</th>
+                                    <th class="py-3">آدرس (Slug)</th>
+                                    <th class="text-center py-3">تعداد محصول</th>
+                                    <th class="text-end pe-4 py-3">عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-4 fw-bold text-gray-700">📱 کالای دیجیتال</td>
+                                    <td class="text-muted text-sm">/digital-goods</td>
+                                    <td class="text-center"><span class="badge bg-secondary rounded-pill">45</span></td>
+                                    <td class="text-end pe-4">
+                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-4 fw-bold text-gray-700">📚 کتاب و لوازم تحریر</td>
+                                    <td class="text-muted text-sm">/books-stationery</td>
+                                    <td class="text-center"><span class="badge bg-secondary rounded-pill">120</span></td>
+                                    <td class="text-end pe-4">
+                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
+                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 bg-gradient-to-br from-cyan-500 to-blue-500 text-white p-4 mb-3">
+                <h5 class="mb-1">مجموع دسته‌ها</h5>
+                <h2 class="fw-bold display-4">8</h2>
+                <p class="mb-0 opacity-75">دسته‌بندی فعال در سایت</p>
+            </div>
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h6 class="fw-bold text-gray-700 mb-3">نکته راهنما</h6>
+                <p class="text-muted text-sm leading-7">
+                    سعی کنید نام دسته‌بندی‌ها کوتاه و گویا باشد. برای سئوی بهتر، فیلد آدرس (Slug) را به انگلیسی وارد کنید. حذف یک دسته‌بندی ممکن است باعث نامشخص شدن وضعیت محصولات آن دسته شود.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
