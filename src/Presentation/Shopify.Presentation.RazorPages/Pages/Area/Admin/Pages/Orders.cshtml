@@ -33,52 +33,114 @@
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="bg-light text-secondary">
-                    <tr>
-                        <th class="ps-4 py-3">شماره سفارش</th>
-                        <th class="py-3">کاربر</th>
-                        <th class="py-3">تاریخ ثبت</th>
-                        <th class="py-3">مبلغ کل</th>
-                        <th class="py-3 text-center">وضعیت</th>
-                        <th class="py-3 text-end pe-4">عملیات</th>
-                    </tr>
+                <tr>
+                    <th class="ps-4 py-3">شماره سفارش</th>
+                    <th class="py-3">کاربر</th>
+                    <th class="py-3">تاریخ ثبت</th>
+                    <th class="py-3">مبلغ کل</th>
+                    <th class="py-3 text-center">وضعیت</th>
+                    <th class="py-3 text-end pe-4">عملیات</th>
+                </tr>
                 </thead>
                 <tbody>
+                @foreach (var item in @Model.Orders)
+                {
                     <tr>
-                        <td class="ps-4 fw-bold">#ORD-2024</td>
+                        <td class="ps-4 fw-bold">#@item.Id</td>
                         <td>
                             <div class="d-flex align-items-center">
                                 <div class="bg-primary-subtle text-primary rounded-circle d-flex justify-content-center align-items-center me-2" style="width:32px; height:32px">A</div>
-                                <span>علی رضایی</span>
+                                <span>@($"{item.UserFirstName} {item.UserLastName}")</span>
                             </div>
                         </td>
-                        <td class="text-muted text-sm">1402/09/15 - 14:30</td>
-                        <td class="fw-bold text-gray-700">86,500,000</td>
+                        <td class="text-muted text-sm">@item.CreatedAt</td>
+                        <td class="fw-bold text-gray-700">@item.TotalAmount</td>
                         <td class="text-center">
-                            <span class="badge bg-warning-subtle text-warning border border-warning px-3 rounded-pill">در حال پردازش</span>
+                            <span class="badge bg-warning-subtle text-warning border border-warning px-3 rounded-pill">@item.Status</span>
                         </td>
                         <td class="text-end pe-4">
                             <button class="btn btn-sm btn-outline-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#orderDetailModal">جزئیات</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="ps-4 fw-bold">#ORD-2023</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="bg-success-subtle text-success rounded-circle d-flex justify-content-center align-items-center me-2" style="width:32px; height:32px">M</div>
-                                <span>مریم احمدی</span>
-                            </div>
-                        </td>
-                        <td class="text-muted text-sm">1402/09/14 - 09:15</td>
-                        <td class="fw-bold text-gray-700">2,100,000</td>
-                        <td class="text-center">
-                            <span class="badge bg-success-subtle text-success border border-success px-3 rounded-pill">تکمیل شده</span>
-                        </td>
-                        <td class="text-end pe-4">
-                            <button class="btn btn-sm btn-outline-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#orderDetailModal">جزئیات</button>
-                        </td>
-                    </tr>
+                }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="orderDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">جزئیات سفارش #ORD-2024</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="bg-gray-50 p-3 rounded-3 mb-3 border">
+                    <div class="row text-sm">
+                        <div class="col-md-4 mb-2"><strong>تحویل گیرنده:</strong> علی رضایی</div>
+                        <div class="col-md-4 mb-2"><strong>تلفن:</strong> 09123456789</div>
+                        <div class="col-md-4 mb-2"><strong>وضعیت:</strong> <span class="text-warning fw-bold">در حال پردازش</span></div>
+                        <div class="col-12"><strong>آدرس:</strong> تهران، میدان آزادی، خیابان آزادی...</div>
+                    </div>
+                </div>
+
+                <table class="table table-bordered align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>محصول</th>
+                            <th class="text-center">تعداد</th>
+                            <th class="text-center">قیمت واحد</th>
+                            <th class="text-center">جمع کل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://via.placeholder.com/40" class="rounded me-2">
+                                    <span class="text-sm">مک‌بوک پرو M2</span>
+                                </div>
+                            </td>
+                            <td class="text-center">1</td>
+                            <td class="text-center">82,500,000</td>
+                            <td class="text-center">82,500,000</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="https://via.placeholder.com/40" class="rounded me-2">
+                                    <span class="text-sm">موس لاجیتک</span>
+                                </div>
+                            </td>
+                            <td class="text-center">2</td>
+                            <td class="text-center">2,000,000</td>
+                            <td class="text-center">4,000,000</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="bg-gray-50">
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">مبلغ نهایی:</td>
+                            <td class="text-center fw-bold text-cyan-700">86,500,000</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="d-flex justify-content-end gap-2 mt-4 border-top pt-3">
+                    <select class="form-select w-auto">
+                        <option>تغییر وضعیت سفارش...</option>
+                        <option value="Shipped">ارسال شد</option>
+                        <option value="Cancelled">لغو سفارش</option>
+                    </select>
+                    <button class="btn btn-success text-white">ذخیره تغییرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("menu-toggle").onclick = function () { document.getElementById("wrapper").classList.toggle("toggled"); };
+</script>
