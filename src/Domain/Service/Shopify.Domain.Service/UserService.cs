@@ -20,6 +20,31 @@ public class UserService(IUserRepository userRepository) : IUserService
         return await userRepository.GetByPhone(phone, cansCancellationToken);
     }
 
+    public Task<ICollection<UserDto>> GetAll(CancellationToken cancellationToken)
+    {
+        return userRepository.GetAll(cancellationToken);
+    }
+
+    public async Task<bool> ChargeWallet(int userId, decimal amount, CancellationToken cancellationToken)
+    {
+        return await userRepository.ChargeWallet(userId, amount, cancellationToken);
+    }
+
+    public async Task<bool> Add(CreateUserDto userDto, CancellationToken cancellationToken)
+    {
+        return await userRepository.Add(userDto, cancellationToken);
+    }
+
+    public async Task<bool> Active(int userId, CancellationToken cancellationToken)
+    {
+        return await userRepository.Active(userId, cancellationToken);
+    }
+
+    public async Task<bool> DeActive(int userId, CancellationToken cancellationToken)
+    {
+        return await userRepository.DeActive(userId, cancellationToken);
+    }
+
     public async Task<UserWithPasswordDto?> GetByPhoneForLogin(string phone, CancellationToken cancellationToken)
     {
         return await userRepository.GetByUserNameForLogin(phone, cancellationToken);

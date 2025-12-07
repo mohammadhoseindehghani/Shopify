@@ -1,6 +1,7 @@
 ﻿using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.UserAgg.AppService;
 using Shopify.Domain.Core.UserAgg.Dto;
+using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Framework;
 
@@ -28,6 +29,57 @@ public class UserAppService(IUserService userService) : IUserAppService
             return Result<UserDto>.Failure("با این شماره تلفن کاربری یافت نشد");
         }
         return Result<UserDto>.Success(user);
+    }
+
+    public Task<ICollection<UserDto>> GetAll(CancellationToken cancellationToken)
+    {
+        return userService.GetAll(cancellationToken);
+    }
+
+    public async Task<Result<bool>> Active(int userId, CancellationToken cancellationToken)
+    {
+        var result = await userService.Active(userId, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("فعالسازی کاربر با شکست مواجه شد");
+        }
+        return Result<bool>.Success(result, "فعالسازی کاربر با موفقعیت انجام شد");
+
+    }
+
+    public async Task<Result<bool>> DeActive(int userId, CancellationToken cancellationToken)
+    {
+        var result = await userService.DeActive(userId, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("غیرفعالسازی کاربر با شکست مواجه شد");
+        }
+        return Result<bool>.Success(result, "غیرفعالسازی کاربر با موفقعیت انجام شد");
+    }
+
+    public async Task<Result<bool>> Add(CreateUserDto userDto, CancellationToken cancellationToken)
+    {
+        //add validation 
+        var result = await userService.Add(userDto, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("خطا در عملیات");
+        }
+        return Result<bool>.Success(result, "کاربر با موفقیت اینجاد شد");
+    }
+
+    public async Task<Result<bool>> ChargeWallet(int userId, decimal amount, CancellationToken cancellationToken)
+    {
+        if (amount <=0)
+        {
+            return Result<bool>.Failure("مقدار ورودی برای شارژ نامعتبر است");
+        }
+        var result = await userService.ChargeWallet(userId, amount, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("خطا در عملیات");
+        }
+        return Result<bool>.Success(result, "حساب کاربر با موفقیت با موفقیت شارژ شد");
     }
 
     public async Task<Result<UserDto>> Login(string phone, string password, CancellationToken cancellationToken)

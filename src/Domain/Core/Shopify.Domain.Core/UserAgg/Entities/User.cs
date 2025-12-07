@@ -11,6 +11,7 @@ public class User : BaseEntity
     public string LastName { get; set; }
     public string PasswordHash { get; set; }
     public string Email { get; set; }
+    public bool IsActive { get; set; }
     public string Phone { get; set; }
     public string ImgUrl { get; set; }
     public decimal Balance { get; set; }
