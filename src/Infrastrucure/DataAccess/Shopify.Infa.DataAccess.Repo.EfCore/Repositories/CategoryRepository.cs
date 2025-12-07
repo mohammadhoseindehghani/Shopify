@@ -58,4 +58,9 @@ public class CategoryRepository(AppDbContext context) : ICategoryRepository
     {
         return await context.Categories.AnyAsync(c => c.Name == name,cancellationToken);
     }
+
+    public Task<bool> Add(CreateCategoryDto createCategoryDto, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

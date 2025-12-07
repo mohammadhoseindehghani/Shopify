@@ -12,7 +12,6 @@
     <Folder Include="CategoryAgg\Entities\" />
     <Folder Include="CategoryAgg\Enums\" />
     <Folder Include="ProductAttributeAgg\Enums\" />
-    <Folder Include="ProductAttributeAgg\Dto\" />
     <Folder Include="_common\" />
     <Folder Include="ProductAgg\Enums\" />
     <Folder Include="UserAgg\Enums\" />

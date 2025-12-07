@@ -9,4 +9,5 @@ public interface ICategoryRepository
     Task<ICollection<CategoryDto>> GetAllParents(CancellationToken cancellationToken);
     Task<ICollection<CategoryDto>> GetSubCategories(int parentId,CancellationToken cancellationToken);
     Task<bool> ExistsByName(string name,CancellationToken cancellationToken);
+    Task<bool> Add(CreateCategoryDto createCategoryDto, CancellationToken cancellationToken);
 }

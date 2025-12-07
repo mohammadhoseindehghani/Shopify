@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/admin/attributes"
 @model Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages.AttributesModel
 @{
     Layout = "Admin/Shared/_AdminLayout";
@@ -7,7 +7,7 @@
 <div class="container-fluid p-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold text-gray-800">ویژگی‌های محصولات (Attributes)</h4>
-        <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addAttributeModal">
+        <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold" onclick="new bootstrap.Modal(document.getElementById('addAttributeModal')).show()">
             <i class="bi bi-plus-lg me-1"></i> ویژگی جدید
         </button>
     </div>
@@ -21,39 +21,33 @@
                             <thead class="bg-light text-secondary">
                                 <tr>
                                     <th class="ps-4 py-3">نام ویژگی</th>
-                                    <th class="py-3">نوع نمایش</th>
-                                    <th class="py-3">دسته‌بندی‌های مرتبط</th>
                                     <th class="text-end pe-4 py-3">عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="ps-4 fw-bold">رنگ (Color)</td>
-                                    <td><span class="badge bg-secondary">انتخاب رنگ</span></td>
-                                    <td><span class="text-muted text-sm">موبایل، پوشاک</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4 fw-bold">حافظه داخلی</td>
-                                    <td><span class="badge bg-secondary">متن کوتاه</span></td>
-                                    <td><span class="text-muted text-sm">موبایل، لپ‌تاپ</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4 fw-bold">سایز لباس</td>
-                                    <td><span class="badge bg-secondary">لیست کشویی</span></td>
-                                    <td><span class="text-muted text-sm">پوشاک</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @if (Model.Attributes != null)
+                                {
+                                    @foreach (var attr in Model.Attributes)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-bold">@attr.Name</td>
+
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-light border text-primary me-1"
+                                                        onclick="openEditModal(@attr.Id, '@attr.Name')">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+
+                                                <form method="post" asp-page-handler="Delete" class="d-inline" onsubmit="return confirm('آیا از حذف این ویژگی مطمئن هستید؟');">
+                                                    <input type="hidden" name="id" value="@attr.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-light border text-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -62,3 +56,60 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addAttributeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">تعریف ویژگی جدید</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="Add">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label text-sm text-gray-600">عنوان ویژگی</label>
+                        <input name="NewAttributeName" class="form-control bg-gray-50" placeholder="مثلا: رنگ، سایز، جنس" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-info text-white rounded-pill px-4">ذخیره ویژگی</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editAttributeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">ویرایش ویژگی</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="Update">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editId">
+                    <div class="mb-3">
+                        <label class="form-label text-sm text-gray-600">عنوان ویژگی</label>
+                        <input name="name" id="editName" class="form-control bg-gray-50" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-warning rounded-pill px-4">بروزرسانی</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEditModal(id, name) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = name;
+            new bootstrap.Modal(document.getElementById('editAttributeModal')).show();
+        }
+    </script>
+}
