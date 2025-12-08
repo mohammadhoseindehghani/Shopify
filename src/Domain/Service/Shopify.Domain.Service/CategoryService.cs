@@ -30,4 +30,23 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
     {
         return await categoryRepository.ExistsByName(name, cancellationToken);
     }
+
+    public async Task<bool> Add(CreateCategoryDto dto, CancellationToken cancellationToken)
+    {
+        if (dto.ParentId.HasValue)
+        {
+            var parentExists = await categoryRepository.Exists(dto.ParentId.Value, cancellationToken);
+
+            if (!parentExists)
+            {
+                throw new Exception("دسته بندی پدر وجود ندارد");
+            }
+        }
+        return await categoryRepository.Add(dto, cancellationToken);
+    }
+
+    public async Task<bool> Exists(int id, CancellationToken cancellationToken)
+    {
+        return await categoryRepository.Exists(id, cancellationToken);
+    }
 }

@@ -30,6 +30,32 @@ public class CategoryAppService(ICategoryService categoryService) : ICategoryApp
         return await categoryService.GetSubCategories(parentId, cancellationToken);
     }
 
+    public async Task<Result<bool>> Add(CreateCategoryDto dto, CancellationToken cancellationToken)
+    {
+        try
+        {
+            if (dto.Name == null!)
+            {
+                return Result<bool>.Failure("اطلاعات ورودی نمی‌تواند خالی باشد.");
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Name))
+            {
+                return Result<bool>.Failure("نام دسته‌بندی الزامی است.");
+            }
+
+            await categoryService.Add(dto, cancellationToken);
+
+
+            return Result<bool>.Success(true, "دسته‌بندی با موفقیت ایجاد شد.");
+        }
+        catch (Exception ex)
+        {
+
+            return Result<bool>.Failure(ex.Message);
+        }
+    }
+
     public async Task<Result<bool>> ExistsByName(string name, CancellationToken cancellationToken)
     {
         var exists = await categoryService.ExistsByName(name, cancellationToken);

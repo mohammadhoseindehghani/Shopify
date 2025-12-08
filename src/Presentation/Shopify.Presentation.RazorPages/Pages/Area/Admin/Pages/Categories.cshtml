@@ -2,49 +2,93 @@
 @model Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages.CategoriesModel
 @{
     Layout = "Admin/Shared/_AdminLayout";
+    ViewData["Title"] = "مدیریت دسته‌بندی‌ها";
 }
 
 <div class="container-fluid p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+<div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold text-gray-800">دسته‌بندی محصولات</h4>
-        <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+        <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold hover-scale"
+                data-bs-toggle="modal" data-bs-target="#addCategoryModal">
             <i class="bi bi-plus-lg me-1"></i> افزودن دسته جدید
         </button>
     </div>
 
     <div class="row">
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="bg-light text-secondary">
                                 <tr>
                                     <th class="ps-4 py-3">نام دسته‌بندی</th>
-                                    <th class="py-3">آدرس (Slug)</th>
-                                    <th class="text-center py-3">تعداد محصول</th>
+                                    <th class="py-3">شناسه (ID)</th>
+                                    <th class="text-center py-3">وضعیت</th>
                                     <th class="text-end pe-4 py-3">عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="ps-4 fw-bold text-gray-700">📱 کالای دیجیتال</td>
-                                    <td class="text-muted text-sm">/digital-goods</td>
-                                    <td class="text-center"><span class="badge bg-secondary rounded-pill">45</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4 fw-bold text-gray-700">📚 کتاب و لوازم تحریر</td>
-                                    <td class="text-muted text-sm">/books-stationery</td>
-                                    <td class="text-center"><span class="badge bg-secondary rounded-pill">120</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-light border text-primary"><i class="bi bi-pencil"></i></button>
-                                        <button class="btn btn-sm btn-light border text-danger"><i class="bi bi-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @if (Model.Categories.Any())
+                                {
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 fw-bold text-gray-700">
+                                                @if (item.ParentId != null)
+                                                {
+                                                    <span class="text-muted ms-3 me-2" style="font-size: 1.2rem;">↳</span>
+                                                    <span class="text-dark">@item.Name</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-folder2-open me-2 text-info opacity-75"></i>
+                                                    <span class="text-primary">@item.Name</span>
+                                                }
+                                            </td>
+                                            <td class="text-muted text-sm font-monospace" style="direction: ltr;">
+                                                #@item.Id
+                                            </td>
+                                            <td class="text-center">
+                                                @if (item.ParentId == null)
+                                                {
+                                                    <span class="badge bg-soft-primary text-primary rounded-pill px-3">دسته اصلی</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-light text-secondary rounded-pill border px-3">زیرمجموعه</span>
+                                                }
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <button class="btn btn-sm btn-light border text-primary shadow-sm" title="ویرایش">
+                                                    <i class="bi bi-pencil"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-light border text-danger shadow-sm ms-1" title="حذف">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5 text-muted">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="bi bi-inbox fs-1 mb-2 opacity-50"></i>
+                                                <span>هنوز هیچ دسته‌بندی ایجاد نشده است.</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -53,17 +97,84 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 bg-gradient-to-br from-cyan-500 to-blue-500 text-white p-4 mb-3">
-                <h5 class="mb-1">مجموع دسته‌ها</h5>
-                <h2 class="fw-bold display-4">8</h2>
-                <p class="mb-0 opacity-75">دسته‌بندی فعال در سایت</p>
+            <div class="card border-0 shadow-sm rounded-4 text-white p-4 mb-3 position-relative overflow-hidden"
+                 style="background: linear-gradient(135deg, #0e75b6 0%, #00d4ff 100%);">
+                <i class="bi bi-grid-fill position-absolute text-white opacity-10" style="font-size: 8rem; top: -20px; left: -20px;"></i>
+
+                <h5 class="mb-1 position-relative">مجموع دسته‌ها</h5>
+                <h2 class="fw-bold display-4 position-relative">@Model.TotalCategories</h2>
+                <p class="mb-0 opacity-75 position-relative">دسته‌بندی فعال در سایت</p>
             </div>
+
             <div class="card border-0 shadow-sm rounded-4 p-4">
-                <h6 class="fw-bold text-gray-700 mb-3">نکته راهنما</h6>
-                <p class="text-muted text-sm leading-7">
-                    سعی کنید نام دسته‌بندی‌ها کوتاه و گویا باشد. برای سئوی بهتر، فیلد آدرس (Slug) را به انگلیسی وارد کنید. حذف یک دسته‌بندی ممکن است باعث نامشخص شدن وضعیت محصولات آن دسته شود.
+                <h6 class="fw-bold text-gray-700 mb-3 border-bottom pb-2">
+                    <i class="bi bi-lightbulb text-warning me-2"></i>راهنما
+                </h6>
+                <p class="text-muted text-sm leading-7 text-justify mb-0">
+                    برای ایجاد <strong>زیرمجموعه</strong>، در فرم افزودن، یک "دسته والد" انتخاب کنید. اگر فیلد والد را خالی بگذارید، یک دسته اصلی (Root) ایجاد می‌شود.
                 </p>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-primary" id="addCategoryModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>افزودن دسته‌بندی جدید
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="post" asp-page-handler="Add">
+                <div class="modal-body pt-4">
+
+                    <div class="mb-4">
+                        <label for="categoryName" class="form-label text-muted small fw-bold">نام دسته‌بندی</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 rounded-end-3"><i class="bi bi-tag text-secondary"></i></span>
+                            <input type="text" class="form-control border-start-0 rounded-start-3 p-2" id="categoryName" name="Name" required placeholder="مثلاً: کالای دیجیتال">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="parentId" class="form-label text-muted small fw-bold">دسته والد (اختیاری)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0 rounded-end-3"><i class="bi bi-diagram-3 text-secondary"></i></span>
+                            <select class="form-select border-start-0 rounded-start-3 p-2" id="parentId" name="ParentId">
+                                <option value="">--- بدون والد (دسته اصلی) ---</option>
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-text text-muted font-monospace small mt-2">
+                            <i class="bi bi-info-circle me-1"></i>اگر چیزی انتخاب نکنید، یک دسته اصلی ایجاد می‌شود.
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light text-secondary rounded-pill px-4" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-check-lg me-1"></i> ثبت دسته
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        var myModal = document.getElementById('addCategoryModal')
+        myModal.addEventListener('shown.bs.modal', function () {
+            document.getElementById('categoryName').focus()
+        })
+    </script>
+}

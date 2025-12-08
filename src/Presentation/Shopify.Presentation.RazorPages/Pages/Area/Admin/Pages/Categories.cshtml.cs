@@ -7,10 +7,35 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
 {
     public class CategoriesModel(ICategoryAppService categoryAppService) : PageModel
     {
+        [BindProperty]
+        public CreateCategoryDto CreateInput { get; set; }
         public ICollection<CategoryDto> Categories { get; set; }
+
+        public int TotalCategories => Categories.Count;
+
+        public string? ErrorMessage { get; set; }
+
         public async Task OnGet(CancellationToken cancellationToken)
         {
-            Categories = await categoryAppService.GetAll(cancellationToken);
+             Categories = await categoryAppService.GetAll(cancellationToken);
+
+        }
+
+
+        public async Task<IActionResult> OnPostAdd(string Name, int? ParentId, CancellationToken cancellationToken)
+        {
+            var dto = new CreateCategoryDto { Name = Name, ParentId = ParentId };
+
+            var result = await categoryAppService.Add(dto, cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                ErrorMessage = result.Message;
+                await OnGet(cancellationToken);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
     }
 }
