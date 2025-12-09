@@ -60,4 +60,9 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     {
         await productRepository.ReduceStock(productId, quantity, cancellationToken);
     }
+
+    public async Task<bool> Delete(int id, CancellationToken cancellationToken)
+    {
+        await productRepository.Delete(id, cancellationToken);
+    }
 }

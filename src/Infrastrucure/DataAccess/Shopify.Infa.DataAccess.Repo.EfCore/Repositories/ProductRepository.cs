@@ -173,4 +173,12 @@ public class ProductRepository(AppDbContext context) : IProductRepository
                 cancellationToken
             );
     }
+
+    public async Task<bool> Delete(int id, CancellationToken cancellationToken)
+    {
+        var effectedRows = await context.Products.Where(p => p.Id == id)
+            .ExecuteDeleteAsync(cancellationToken);
+
+        return effectedRows > 0;
+    }
 }

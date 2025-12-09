@@ -166,11 +166,9 @@
         el.classList.toggle("toggled");
     };
 
-    // تنظیم فونت کلی نمودارها
     Chart.defaults.font.family = "'Vazirmatn', sans-serif";
     Chart.defaults.color = '#64748b';
 
-    // 1. نمودار فروش و سفارشات (Bar & Line)
     const ctxSales = document.getElementById('salesChart').getContext('2d');
     new Chart(ctxSales, {
         type: 'bar',
@@ -180,7 +178,7 @@
                 {
                     label: 'تعداد سفارشات',
                     data: [12, 19, 3, 5, 2, 3, 10],
-                    backgroundColor: 'rgba(0, 172, 193, 0.2)', // رنگ فیروزه‌ای شفاف
+                    backgroundColor: 'rgba(0, 172, 193, 0.2)', 
                     borderColor: 'rgba(0, 172, 193, 1)',
                     borderWidth: 1,
                     yAxisID: 'y',
@@ -190,10 +188,10 @@
                     label: 'مجموع فروش (میلیون تومان)',
                     data: [150, 230, 45, 80, 20, 40, 120],
                     type: 'line',
-                    borderColor: '#ff9800', // رنگ نارنجی برای خط
+                    borderColor: '#ff9800', 
                     backgroundColor: '#ff9800',
                     borderWidth: 2,
-                    tension: 0.4, // انحنای خط
+                    tension: 0.4, 
                     yAxisID: 'y1'
                 }
             ]

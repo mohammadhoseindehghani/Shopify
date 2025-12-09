@@ -29,6 +29,7 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
 
         public async Task<IActionResult> OnPostDelete(int id, CancellationToken cancellationToken)
         {
+            await productAppService.Delete(id, cancellationToken);
             return RedirectToPage();
         }
     }

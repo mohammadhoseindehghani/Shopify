@@ -15,5 +15,6 @@ public interface IProductAppService
     Task<ICollection<ProductListDto>> GetProductsByCategory(int categoryId, CancellationToken cancellationToken);
     Task<ICollection<ProductListDto>> SearchProducts(string keyword, CancellationToken cancellationToken);
     Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken);
+    Task<Result<bool>> Delete(int id, CancellationToken cancellationToken);
 
 }

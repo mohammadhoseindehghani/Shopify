@@ -60,4 +60,15 @@ public class ProductAppService(IProductService productService) : IProductAppServ
     {
         return await productService.GetProductsWithAttributes(cancellationToken);
     }
+
+    public async Task<Result<bool>> Delete(int id, CancellationToken cancellationToken)
+    {
+        var result = await productService.Delete(id, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("عملیات حذف با شکست مواجه شد");
+        }
+
+        return Result<bool>.Success(result, "حذف با موفقیت انجام شد");
+    }
 }

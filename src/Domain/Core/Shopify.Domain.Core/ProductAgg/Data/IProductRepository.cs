@@ -1,7 +1,5 @@
 ﻿using Shopify.Domain.Core.ProductAgg.Dto;
-using Shopify.Domain.Core.ProductAgg.Entities;
-using Shopify.Domain.Core.ProductAttributeAgg.Entities;
-using System.Threading;
+
 
 namespace Shopify.Domain.Core.ProductAgg.Data;
 
@@ -18,5 +16,5 @@ public interface IProductRepository
     Task<bool> ExistsByTitle(string title, CancellationToken cancellationToken);
     Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken);
     Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken);
-
+    Task<bool> Delete(int id, CancellationToken cancellationToken);
 }
