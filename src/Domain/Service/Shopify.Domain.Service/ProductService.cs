@@ -41,6 +41,16 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         return await productRepository.ExistsByTitle(title, cancellationToken);
     }
 
+    public async Task<bool> ChangeCategory(int productId, int newCategoryId, CancellationToken cancellationToken)
+    {
+        return await productRepository.ChangeCategory(productId, newCategoryId, cancellationToken);
+    }
+
+    public async Task<ICollection<AdminProductDto>> GetProductsForAdmin(CancellationToken cancellationToken)
+    {
+        return await productRepository.GetProductsForAdmin(cancellationToken);
+    }
+
     public async Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken)
     {
         return await productRepository.GetProductsWithAttributes(cancellationToken);

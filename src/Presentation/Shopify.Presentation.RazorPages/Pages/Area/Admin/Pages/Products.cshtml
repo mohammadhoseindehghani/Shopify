@@ -20,10 +20,8 @@
                     <input type="text" class="form-control bg-gray-50 border-0" placeholder="جستجو در نام محصول...">
                 </div>
                 <div class="col-md-3">
-                    <select class="form-select bg-gray-50 border-0">
-                        <option>همه دسته‌بندی‌ها</option>
-                        <option>کالای دیجیتال</option>
-                        <option>پوشاک</option>
+                    <select class="form-select bg-gray-50 border-0" asp-items="Model.Categories">
+                        <option value="">همه دسته‌بندی‌ها</option>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -47,72 +45,174 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center">
-                                <img src="https://via.placeholder.com/60" class="rounded-3 border me-3" width="50" height="50">
-                                <div>
-                                    <h6 class="mb-0 fw-bold text-gray-800 text-sm">گوشی سامسونگ S21</h6>
-                                    <small class="text-muted text-xs">کد: DK-2030</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-light text-dark border">موبایل</span></td>
-                        <td class="fw-bold text-cyan-700">25,000,000</td>
-                        <td class="text-center">
-                            <span class="d-block fw-bold">12</span>
-                            <div class="progress" style="height: 4px; width: 60px; margin: 0 auto;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 70%"></div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <span class="badge bg-success-subtle text-success rounded-pill px-3">فعال</span>
-                        </td>
-                        <td class="text-end pe-4">
-                            <button class="btn btn-sm btn-light text-primary border me-1" title="ویرایش"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-light text-danger border" title="حذف"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center">
-                                <img src="https://via.placeholder.com/60" class="rounded-3 border me-3" width="50" height="50">
-                                <div>
-                                    <h6 class="mb-0 fw-bold text-gray-800 text-sm">هدفون سونی XM4</h6>
-                                    <small class="text-muted text-xs">کد: DK-5500</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-light text-dark border">لوازم جانبی</span></td>
-                        <td class="fw-bold text-cyan-700">12,000,000</td>
-                        <td class="text-center">
-                            <span class="d-block fw-bold text-danger">2</span>
-                            <div class="progress" style="height: 4px; width: 60px; margin: 0 auto;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"></div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <span class="badge bg-danger-subtle text-danger rounded-pill px-3">ناموجود</span>
-                        </td>
-                        <td class="text-end pe-4">
-                            <button class="btn btn-sm btn-light text-primary border me-1"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-light text-danger border"><i class="bi bi-trash"></i></button>
-                        </td>
-                    </tr>
+                    @if (Model.Products != null)
+                    {
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "https://via.placeholder.com/50" : item.ImageUrl)"
+                                             class="rounded-3 border me-3" width="50" height="50" style="object-fit: cover;">
+                                        <div>
+                                            <h6 class="mb-0 fw-bold text-gray-800 text-sm">@item.Title</h6>
+                                            <small class="text-muted text-xs">ID: @item.Id</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td><span class="badge bg-light text-dark border">@item.CategoryName</span></td>
+
+                                <td class="fw-bold text-cyan-700">@item.Price.ToString("N0")</td>
+
+                                <td class="text-center">
+                                    <span class="d-block fw-bold">@item.StockQuantity</span>
+                                    @{
+                                        var progressColor = item.StockQuantity > 10 ? "bg-success" : (item.StockQuantity > 0 ? "bg-warning" : "bg-danger");
+                                        var width = item.StockQuantity > 100 ? 100 : item.StockQuantity;
+                                    }
+                                    <div class="progress" style="height: 4px; width: 60px; margin: 0 auto;">
+                                        <div class="progress-bar @progressColor" role="progressbar" style="width: @width%"></div>
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    @if (item.IsActive)
+                                    {
+                                        <span class="badge bg-success-subtle text-success rounded-pill px-3">فعال</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger-subtle text-danger rounded-pill px-3">غیرفعال</span>
+                                    }
+                                </td>
+
+                                <td class="text-end pe-4">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-light border rounded-circle" data-bs-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                            <li>
+                                                <button class="dropdown-item text-sm" onclick="openCategoryModal(@item.Id, @item.CategoryId)">
+                                                    <i class="bi bi-tags me-2 text-warning"></i>تغییر دسته‌بندی
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="dropdown-item text-sm" onclick="openAttributeModal(@item.Id, '@item.Title')">
+                                                    <i class="bi bi-list-check me-2 text-info"></i>افزودن ویژگی
+                                                </button>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item text-sm" href="#"><i class="bi bi-pencil me-2 text-primary"></i>ویرایش کامل</a></li>
+                                            <li>
+                                                <form method="post" asp-page-handler="Delete" onsubmit="return confirm('حذف شود؟')">
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <button class="dropdown-item text-sm text-danger"><i class="bi bi-trash me-2"></i>حذف محصول</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div>
-        <div class="card-footer bg-white py-3">
-            <nav>
-                <ul class="pagination justify-content-center mb-0 text-sm">
-                    <li class="page-item disabled"><a class="page-link" href="#">قبلی</a></li>
-                    <li class="page-item active"><a class="page-link bg-info border-info" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link text-info" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link text-info" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link text-info" href="#">بعدی</a></li>
-                </ul>
-            </nav>
+    </div>
+</div>
+
+<div class="modal fade" id="changeCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">تغییر دسته‌بندی محصول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="ChangeCategory">
+                <div class="modal-body">
+                    <input type="hidden" name="productId" id="catModalProductId">
+
+                    <div class="mb-3">
+                        <label class="form-label text-sm text-gray-600">دسته‌بندی جدید:</label>
+                        <select name="newCategoryId" id="catModalSelect" class="form-select bg-gray-50" asp-items="Model.Categories">
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-warning rounded-pill px-4">ذخیره تغییرات</button>
+                </div>
+            </form>
         </div>
     </div>
-
 </div>
+
+<div class="modal fade" id="addAttributeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">افزودن ویژگی به محصول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="AddAttribute">
+                <div class="modal-body">
+                    <input type="hidden" name="productId" id="attrModalProductId">
+                    <div class="alert alert-info border-0 py-2 text-sm mb-3">
+                        محصول: <strong id="attrModalProductName">...</strong>
+                    </div>
+
+                    <div class="row g-2">
+                        <div class="col-md-5">
+                            <label class="form-label text-sm text-gray-600">نام ویژگی</label>
+                            <input type="text" name="attributeName" class="form-control bg-gray-50" placeholder="مثلا: وزن" required>
+                        </div>
+                        <div class="col-md-7">
+                            <label class="form-label text-sm text-gray-600">مقدار</label>
+                            <input type="text" name="attributeValue" class="form-control bg-gray-50" placeholder="مثلا: 200 گرم" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-info text-white rounded-pill px-4">افزودن</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addProductModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">افزودن محصول جدید</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>فرم ایجاد محصول اینجا قرار می‌گیرد...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openCategoryModal(productId, currentCategoryId) {
+            document.getElementById('catModalProductId').value = productId;
+
+            const select = document.getElementById('catModalSelect');
+            if(select) select.value = currentCategoryId;
+
+            new bootstrap.Modal(document.getElementById('changeCategoryModal')).show();
+        }
+
+        function openAttributeModal(productId, productName) {
+            document.getElementById('attrModalProductId').value = productId;
+            document.getElementById('attrModalProductName').innerText = productName;
+
+            new bootstrap.Modal(document.getElementById('addAttributeModal')).show();
+        }
+    </script>
+}

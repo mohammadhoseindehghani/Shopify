@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Shopify.Domain.Core.ProductAgg.Data;
 using Shopify.Domain.Core.ProductAgg.Dto;
+using Shopify.Domain.Core.ProductAgg.Entities;
+using Shopify.Domain.Core.ProductAttributeAgg.Entities;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 
 namespace Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
@@ -45,6 +48,24 @@ public class ProductRepository(AppDbContext context) : IProductRepository
             }).ToListAsync(cancellationToken);
     }
 
+    public async Task<ICollection<AdminProductDto>> GetProductsForAdmin(CancellationToken cancellationToken)
+    {
+        return await context.Products
+            .AsNoTracking()
+            .Select(p => new AdminProductDto()
+        {
+            Id = p.Id,
+            Title = p.Title,
+            ImageUrl = p.ImageUrl,
+            Price = p.Price,
+            IsSpecial = p.IsSpecial,
+            IsActive = p.IsActive,
+            CategoryId = p.CategoryId,
+            StockQuantity = p.StockQuantity,
+            CategoryName = p.Category.Name,
+        }).ToListAsync(cancellationToken);
+    }
+
     public async Task<ICollection<ProductListDto>> GetActiveProducts(CancellationToken cancellationToken)
     {
         return await context.Products
@@ -71,6 +92,15 @@ public class ProductRepository(AppDbContext context) : IProductRepository
                 Price = p.Price,
                 IsSpecial = p.IsSpecial
             }).ToListAsync(cancellationToken);
+    }
+
+    public async Task<bool> ChangeCategory(int productId, int newCategoryId, CancellationToken cancellationToken)
+    {
+        var effectedRows = await context.Products
+            .Where(p => p.Id == productId)
+            .ExecuteUpdateAsync(setter => setter
+                .SetProperty(p => p.CategoryId, newCategoryId), cancellationToken);
+        return effectedRows > 0;
     }
 
     public async Task<ICollection<ProductListDto>> GetProductsByCategory(int categoryId, CancellationToken cancellationToken)
@@ -143,5 +173,4 @@ public class ProductRepository(AppDbContext context) : IProductRepository
                 cancellationToken
             );
     }
-
 }

@@ -30,6 +30,22 @@ public class ProductAppService(IProductService productService) : IProductAppServ
         return await productService.GetSpecialProducts(cancellationToken);
     }
 
+    public async Task<ICollection<AdminProductDto>> GetProductsForAdmin(CancellationToken cancellationToken)
+    {
+        return await productService.GetProductsForAdmin(cancellationToken);
+    }
+
+    public async Task<Result<bool>> ChangeCategory(int productId, int newCategoryId, CancellationToken cancellationToken)
+    {
+        var result =await productService.ChangeCategory(productId, newCategoryId, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("خطا در عملیات");
+        }
+
+        return Result<bool>.Success(result);
+    }
+
     public async Task<ICollection<ProductListDto>> GetProductsByCategory(int categoryId, CancellationToken cancellationToken)
     {
         return await productService.GetProductsByCategory(categoryId, cancellationToken);
