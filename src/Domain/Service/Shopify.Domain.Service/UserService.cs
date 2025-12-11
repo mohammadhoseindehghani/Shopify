@@ -54,4 +54,9 @@ public class UserService(IUserRepository userRepository) : IUserService
     {
         return await userRepository.UserCount(cancellationToken);
     }
+
+    public async Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken)
+    {
+        return await userRepository.GetUserDetail(id, cancellationToken);
+    }
 }

@@ -18,6 +18,7 @@
 
             try
             {
+                
                 await next(context);
                 stopwatch.Stop();
 

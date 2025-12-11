@@ -70,6 +70,11 @@
                                                     <i class="bi bi-person-gear me-2 text-warning"></i>تغییر نقش
                                                 </button>
                                             </li>
+                                            <li>
+                                                <a asp-page="./UserDetails" asp-route-id="@user.Id" class="dropdown-item">
+                                                    <i class="bi bi-person-gear me-2 text-warning"></i>نمایش توضیحات
+                                                </a>
+                                            </li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li>
                                                 <form method="post" asp-page-handler="ToggleStatus">

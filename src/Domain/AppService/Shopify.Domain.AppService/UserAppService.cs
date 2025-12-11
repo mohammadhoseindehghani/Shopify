@@ -118,4 +118,15 @@ public class UserAppService(IUserService userService) : IUserAppService
     {
         return await userService.UserCount(cancellationToken);
     }
+
+    public async Task<Result<UserDetailDto>> GetUserDetail(int id, CancellationToken cancellationToken)
+    {
+        var user = await userService.GetUserDetail(id, cancellationToken);
+        if (user is null)
+        {
+            return Result<UserDetailDto>.Failure("برای این کاربر جزئیاتی یافت نشد");
+        }
+
+        return Result<UserDetailDto>.Success(user);
+    }
 }

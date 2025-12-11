@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Shopify.Domain.AppService;
 using Shopify.Domain.Core.UserAgg.AppService;
 using Shopify.Domain.Core.UserAgg.Dto;
 
@@ -10,6 +11,8 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
         public ICollection<UserDto> Users { get; set; }
         [BindProperty]
         public CreateUserDto NewUser { get; set; }
+
+        public UserDetailDto UserDetails { get; set; }
         public async Task OnGet(CancellationToken cancellationToken)
         {
             Users = await userAppService.GetAll(cancellationToken);
@@ -41,17 +44,15 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
                 Users = await userAppService.GetAll(cancellationToken);
                 return Page();
             }
-
             var result = await userAppService.Add(NewUser, cancellationToken);
-
             if (!result.IsSuccess)
             {
                 ModelState.AddModelError("", result.Message!);
                 Users = await userAppService.GetAll(cancellationToken);
                 return Page();
             }
-
             return RedirectToPage();
         }
+
     }
 }

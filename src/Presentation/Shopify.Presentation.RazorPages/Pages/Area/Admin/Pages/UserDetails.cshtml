@@ -1,0 +1,65 @@
+﻿@page "{id:int}"
+@model Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages.UserDetailsModel
+@{
+    Layout = "Admin/Shared/_AdminLayout";
+}
+
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-gray-800">جزئیات کاربر</h4>
+        <a asp-page="./Index" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-right me-2"></i>بازگشت به لیست
+        </a>
+    </div>
+
+    @if (Model.UserDetails != null)
+    {
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h6 class="text-primary fw-bold mb-3">اطلاعات فردی</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">نام کامل:</span>
+                                <span class="fw-bold">@Model.UserDetails.FirstName @Model.UserDetails.LastName</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">شماره موبایل:</span>
+                                <span>@Model.UserDetails.Phone</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">ایمیل:</span>
+                                <span>@(Model.UserDetails.Email ?? "---")</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">تعداد سفارش ها:</span>
+                                <span>@Model.UserDetails.OrderCount</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h6 class="text-primary fw-bold mb-3">وضعیت حساب</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">موجودی کیف پول:</span>
+                                <span class="text-success fw-bold">@Model.UserDetails.Balance.ToString("N0") تومان</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">تاریخ ثبت نام:</span>
+                                <span>@Model.UserDetails.Created</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span class="text-muted">وضعیت:</span>
+                                <span class="badge @(Model.UserDetails.IsActive ? "bg-success" : "bg-danger")">
+                                    @(Model.UserDetails.IsActive ? "فعال" : "غیرفعال")
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

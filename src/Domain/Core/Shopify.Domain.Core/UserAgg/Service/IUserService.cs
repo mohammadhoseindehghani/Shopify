@@ -14,4 +14,5 @@ public interface IUserService
     Task<bool> DeActive(int userId, CancellationToken cancellationToken);
     Task<UserWithPasswordDto?> GetByPhoneForLogin(string phone, CancellationToken cancellationToken);
     Task<int> UserCount(CancellationToken cancellationToken);
+    Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken);
 }

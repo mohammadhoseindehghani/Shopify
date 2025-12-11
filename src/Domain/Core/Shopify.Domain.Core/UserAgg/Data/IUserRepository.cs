@@ -14,4 +14,5 @@ public interface IUserRepository
     Task<UserWithPasswordDto?> GetByUserNameForLogin(string username, CancellationToken cancellationToken);
     Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken);
     Task<int> UserCount(CancellationToken cancellationToken);
+    Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken);
 }

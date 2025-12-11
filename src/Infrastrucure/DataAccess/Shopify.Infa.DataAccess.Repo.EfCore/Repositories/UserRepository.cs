@@ -141,4 +141,23 @@ public class UserRepository(AppDbContext context) : IUserRepository
     {
         return await context.Users.CountAsync(cancellationToken);
     }
+
+    public async Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken)
+    {
+        return await context.Users.Where(u => u.Id == id)
+            .Select(u => new UserDetailDto()
+            {
+                Id = u.Id,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Email = u.Email,
+                Phone = u.Phone,
+                ImgUrl = u.ImgUrl,
+                IsActive = u.IsActive,
+                Balance = u.Balance,
+                Role = u.Role,
+                Created = u.CreatedAt,
+                OrderCount = u.Orders.Count()
+            }).FirstOrDefaultAsync(cancellationToken);
+    }
 }
