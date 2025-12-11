@@ -9,6 +9,8 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
     {
         [BindProperty]
         public CreateCategoryDto CreateInput { get; set; }
+        [BindProperty]
+        public string NewNameCategory { get; set; }
         public ICollection<CategoryDto> Categories { get; set; }
 
         public int TotalCategories => Categories.Count;
@@ -35,6 +37,32 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
                 return Page();
             }
 
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostDelete(int id, CancellationToken cancellationToken)
+        {
+            var result = await categoryAppService.Delete(id, cancellationToken);
+            if (!result.IsSuccess)
+            {
+                ErrorMessage = result.Message;
+                await OnGet(cancellationToken);
+                return Page();
+
+            }
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostEdit(int id,string name, CancellationToken cancellationToken)
+        {
+            var result = await categoryAppService.Edit(id,name, cancellationToken);
+            if (!result.IsSuccess)
+            {
+                ErrorMessage = result.Message;
+                await OnGet(cancellationToken);
+                return Page();
+
+            }
             return RedirectToPage();
         }
     }

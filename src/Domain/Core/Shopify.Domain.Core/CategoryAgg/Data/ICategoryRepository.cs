@@ -11,4 +11,6 @@ public interface ICategoryRepository
     Task<bool> ExistsByName(string name,CancellationToken cancellationToken);
     Task<bool> Add(CreateCategoryDto dto, CancellationToken cancellationToken);
     Task<bool> Exists(int id, CancellationToken cancellationToken);
+    Task<bool> Edit(int id, string name, CancellationToken cancellationToken);
+    Task<bool> Delete(int id, CancellationToken cancellationToken);
 }

@@ -49,4 +49,14 @@ public class CategoryService(ICategoryRepository categoryRepository) : ICategory
     {
         return await categoryRepository.Exists(id, cancellationToken);
     }
+
+    public async Task<bool> Edit(int id, string name, CancellationToken cancellationToken)
+    {
+        return await categoryRepository.Edit(id, name, cancellationToken);
+    }
+
+    public async Task<bool> Delete(int id, CancellationToken cancellationToken)
+    {
+        return await categoryRepository.Delete(id, cancellationToken);
+    }
 }

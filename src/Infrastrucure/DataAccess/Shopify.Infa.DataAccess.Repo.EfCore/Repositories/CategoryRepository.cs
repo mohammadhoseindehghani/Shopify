@@ -81,4 +81,18 @@ public class CategoryRepository(AppDbContext context) : ICategoryRepository
     {
         return await context.Categories.AnyAsync(c => c.Id == id, cancellationToken);
     }
+
+    public async Task<bool> Edit(int id, string name, CancellationToken cancellationToken)
+    {
+        var effectedRows = await context.Categories.Where(c => c.Id == id)
+            .ExecuteUpdateAsync(setter => setter
+                .SetProperty(c=>c.Name, name), cancellationToken);
+        return effectedRows > 0;
+    }
+
+    public async Task<bool> Delete(int id, CancellationToken cancellationToken)
+    {
+        return await context.Categories.Where(c => c.Id == id)
+            .ExecuteDeleteAsync(cancellationToken) > 0;
+    }
 }

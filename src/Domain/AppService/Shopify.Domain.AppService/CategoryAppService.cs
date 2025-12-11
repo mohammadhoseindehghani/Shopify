@@ -2,6 +2,7 @@
 using Shopify.Domain.Core.CategoryAgg.AppService;
 using Shopify.Domain.Core.CategoryAgg.Dto;
 using Shopify.Domain.Core.CategoryAgg.Service;
+using System.Xml.Linq;
 
 namespace Shopify.Domain.AppService;
 
@@ -54,6 +55,26 @@ public class CategoryAppService(ICategoryService categoryService) : ICategoryApp
 
             return Result<bool>.Failure(ex.Message);
         }
+    }
+
+    public async Task<Result<bool>> Edit(int id, string name, CancellationToken cancellationToken)
+    {
+        var result = await categoryService.Edit(id, name, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("ادیت نشد");
+        }
+        return Result<bool>.Success(result,"ادیت انجام شد");
+    }
+
+    public async Task<Result<bool>> Delete(int id, CancellationToken cancellationToken)
+    {
+        var result = await categoryService.Delete(id, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("حذف نشد");
+        }
+        return Result<bool>.Success(result, "حذف انجام شد");
     }
 
     public async Task<Result<bool>> ExistsByName(string name, CancellationToken cancellationToken)
