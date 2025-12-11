@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Shopify.Domain.AppService;
 using Shopify.Domain.Core.CartAgg.AppService;
 using Shopify.Domain.Core.CartAgg.Data;
@@ -22,8 +23,14 @@ using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Domain.Service;
 using Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
+using Shopify.Presentation.RazorPages.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(context.Configuration);
+});
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -84,6 +91,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 
 var app = builder.Build();
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 if (!app.Environment.IsDevelopment())
 {
