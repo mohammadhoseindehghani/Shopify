@@ -71,4 +71,24 @@ public class ProductAppService(IProductService productService) : IProductAppServ
 
         return Result<bool>.Success(result, "حذف با موفقیت انجام شد");
     }
+
+    public async Task<int> ProductCount(CancellationToken cancellationToken)
+    {
+        return await productService.ProductCount(cancellationToken);
+    }
+
+    public async Task<int> GetProductsInStock(CancellationToken cancellationToken)
+    {
+        return await productService.GetProductsInStock(cancellationToken);
+    }
+
+    public async Task<int> GetProductsRunningLow(CancellationToken cancellationToken)
+    {
+        return await productService.GetProductsRunningLow(cancellationToken);
+    }
+
+    public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
+    {
+        return await productService.GetProductsOutOfStock(cancellationToken);
+    }
 }

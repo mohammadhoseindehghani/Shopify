@@ -17,4 +17,8 @@ public interface IProductRepository
     Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken);
     Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken);
     Task<bool> Delete(int id, CancellationToken cancellationToken);
+    Task<int> ProductCount(CancellationToken cancellationToken);
+    Task<int> GetProductsInStock(CancellationToken cancellationToken);
+    Task<int> GetProductsRunningLow(CancellationToken cancellationToken);
+    Task<int> GetProductsOutOfStock(CancellationToken cancellationToken);
 }

@@ -13,4 +13,7 @@ public interface IOrderAppService
     Task<ICollection<OrderDto>> GetAll(CancellationToken cancellationToken);
     Task<ICollection<OrderDto>> GetOrdersByStatus(OrderStatusEnum status, CancellationToken cancellationToken);
     Task<ICollection<OrderItemDto>> GetOrderItems(int orderId, CancellationToken cancellationToken);
+    Task<int> OrderCount(CancellationToken cancellationToken);
+    Task<decimal> TotalOrder(CancellationToken cancellationToken);
+
 }

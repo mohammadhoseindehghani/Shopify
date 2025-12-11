@@ -180,4 +180,14 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
             })
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<int> OrderCount(CancellationToken cancellationToken)
+    {
+        return await context.Orders.Where(o=>o.IsFinalized).CountAsync(cancellationToken);
+    }
+
+    public async Task<decimal> TotalOrder(CancellationToken cancellationToken)
+    {
+        return await context.Orders.Where(o => o.IsFinalized).SumAsync(p=>p.TotalAmount,cancellationToken);
+    }
 }

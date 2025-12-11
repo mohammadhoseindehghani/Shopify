@@ -181,4 +181,24 @@ public class ProductRepository(AppDbContext context) : IProductRepository
 
         return effectedRows > 0;
     }
+
+    public async Task<int> ProductCount(CancellationToken cancellationToken)
+    {
+        return await context.Products.CountAsync(cancellationToken);
+    }
+
+    public async Task<int> GetProductsInStock(CancellationToken cancellationToken)
+    {
+        return await context.Products.Where(p=>p.StockQuantity > 5).CountAsync(cancellationToken);
+    }
+
+    public async Task<int> GetProductsRunningLow(CancellationToken cancellationToken)
+    {
+        return await context.Products.Where(p => p.StockQuantity <= 5 && p.StockQuantity>0).CountAsync(cancellationToken);
+    }
+
+    public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
+    {
+        return await context.Products.Where(p => p.StockQuantity == 0).CountAsync(cancellationToken);
+    }
 }

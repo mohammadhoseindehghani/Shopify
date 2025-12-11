@@ -137,4 +137,8 @@ public class UserRepository(AppDbContext context) : IUserRepository
             );
     }
 
+    public async Task<int> UserCount(CancellationToken cancellationToken)
+    {
+        return await context.Users.CountAsync(cancellationToken);
+    }
 }

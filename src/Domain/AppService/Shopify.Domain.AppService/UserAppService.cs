@@ -113,4 +113,9 @@ public class UserAppService(IUserService userService) : IUserAppService
 
         return Result<UserDto>.Success(user);
     }
+
+    public async Task<int> UserCount(CancellationToken cancellationToken)
+    {
+        return await userService.UserCount(cancellationToken);
+    }
 }

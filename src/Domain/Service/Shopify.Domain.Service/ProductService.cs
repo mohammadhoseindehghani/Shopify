@@ -63,6 +63,26 @@ public class ProductService(IProductRepository productRepository) : IProductServ
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)
     {
-        await productRepository.Delete(id, cancellationToken);
+        return await productRepository.Delete(id, cancellationToken);
+    }
+
+    public async Task<int> ProductCount(CancellationToken cancellationToken)
+    {
+        return await productRepository.ProductCount(cancellationToken);
+    }
+
+    public async Task<int> GetProductsInStock(CancellationToken cancellationToken)
+    {
+        return await productRepository.GetProductsInStock(cancellationToken);
+    }
+
+    public async Task<int> GetProductsRunningLow(CancellationToken cancellationToken)
+    {
+        return await productRepository.GetProductsRunningLow(cancellationToken);
+    }
+
+    public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
+    {
+        return await productRepository.GetProductsOutOfStock(cancellationToken);
     }
 }

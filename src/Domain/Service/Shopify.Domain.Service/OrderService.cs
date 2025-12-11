@@ -53,5 +53,13 @@ public class OrderService(IOrderRepository orderRepository) : IOrderService
         return await orderRepository.GetOrderItems(orderId, cancellationToken);
     }
 
+    public async Task<int> OrderCount(CancellationToken cancellationToken)
+    {
+        return await orderRepository.OrderCount(cancellationToken);
+    }
 
+    public async Task<decimal> TotalOrder(CancellationToken cancellationToken)
+    {
+        return await orderRepository.TotalOrder(cancellationToken);
+    }
 }

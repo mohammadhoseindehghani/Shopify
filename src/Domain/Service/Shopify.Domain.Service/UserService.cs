@@ -49,4 +49,9 @@ public class UserService(IUserRepository userRepository) : IUserService
     {
         return await userRepository.GetByUserNameForLogin(phone, cancellationToken);
     }
+
+    public async Task<int> UserCount(CancellationToken cancellationToken)
+    {
+        return await userRepository.UserCount(cancellationToken);
+    }
 }

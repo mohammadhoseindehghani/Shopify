@@ -110,4 +110,14 @@ public class OrderAppService(IOrderService orderService,IUserService userService
     {
         return await orderService.GetOrderItems(orderId, cancellationToken);
     }
+
+    public async Task<int> OrderCount(CancellationToken cancellationToken)
+    {
+        return await orderService.OrderCount(cancellationToken);
+    }
+
+    public async Task<decimal> TotalOrder(CancellationToken cancellationToken)
+    {
+        return await orderService.TotalOrder(cancellationToken);
+    }
 }

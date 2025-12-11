@@ -15,4 +15,5 @@ public interface IUserAppService
     Task<Result<bool>> Add(CreateUserDto userDto, CancellationToken cancellationToken);
     Task<Result<bool>> ChargeWallet(int userId, decimal amount, CancellationToken cancellationToken);
     Task<Result<UserDto>> Login(string phone,string password, CancellationToken cancellationToken);
+    Task<int> UserCount(CancellationToken cancellationToken);
 }
