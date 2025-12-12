@@ -120,6 +120,7 @@ public class UserAppService(IUserService userService, ILogger<UserAppService> lo
     public async Task<Result<bool>> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
     {
         //validation
+        userDto.Password = PasswordHasherSha256.HashPassword(userDto.Password);
         var result = await userService.Register(userDto, cancellationToken);
         if (!result)
         {
