@@ -5,6 +5,7 @@ namespace Shopify.Domain.Core.ProductAgg.Data;
 
 public interface IProductRepository
 {
+    Task<bool> Add(CreateProductDto createProductDto, CancellationToken cancellationToken);
     Task<ProductDetailDto?> GetById(int id, CancellationToken cancellationToken);
     Task<ICollection<ProductListDto>> GetAll(CancellationToken cancellationToken);
     Task<ICollection<AdminProductDto>> GetProductsForAdmin(CancellationToken cancellationToken); 
@@ -21,4 +22,7 @@ public interface IProductRepository
     Task<int> GetProductsInStock(CancellationToken cancellationToken);
     Task<int> GetProductsRunningLow(CancellationToken cancellationToken);
     Task<int> GetProductsOutOfStock(CancellationToken cancellationToken);
+    Task<bool> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken);
+    Task<bool> EditImg(int id, string imgUrl, CancellationToken cancellationToken);
+    Task<string?> GetImg(int id, CancellationToken cancellationToken);
 }

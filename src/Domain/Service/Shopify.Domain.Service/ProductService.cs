@@ -6,6 +6,11 @@ namespace Shopify.Domain.Service;
 
 public class ProductService(IProductRepository productRepository) : IProductService
 {
+    public async Task<bool> Add(CreateProductDto createProductDto, CancellationToken cancellationToken)
+    {
+        return await productRepository.Add(createProductDto, cancellationToken);
+    }
+
     public async Task<ProductDetailDto?> GetById(int id, CancellationToken cancellationToken)
     {
         return await productRepository.GetById(id, cancellationToken);
@@ -84,5 +89,20 @@ public class ProductService(IProductRepository productRepository) : IProductServ
     public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
     {
         return await productRepository.GetProductsOutOfStock(cancellationToken);
+    }
+
+    public async Task<bool> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken)
+    {
+        return await productRepository.EditProduct(id, editDto, cancellationToken);
+    }
+
+    public async Task<bool> EditImg(int id, string imgUrl, CancellationToken cancellationToken)
+    {
+        return await productRepository.EditImg(id, imgUrl, cancellationToken);
+    }
+
+    public  async Task<string> GetImg(int id, CancellationToken cancellationToken)
+    {
+        return await productRepository.GetImg(id, cancellationToken);
     }
 }

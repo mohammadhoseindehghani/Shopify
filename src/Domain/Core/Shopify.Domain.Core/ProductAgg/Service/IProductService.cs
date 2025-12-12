@@ -4,6 +4,7 @@ namespace Shopify.Domain.Core.ProductAgg.Service;
 
 public interface IProductService
 {
+    Task<bool> Add(CreateProductDto createProductDto, CancellationToken cancellationToken);
     Task<ProductDetailDto?> GetById(int id, CancellationToken cancellationToken);
     Task<ICollection<ProductListDto>> GetAll(CancellationToken cancellationToken);
     Task<ICollection<ProductListDto>> GetActiveProducts(CancellationToken cancellationToken);
@@ -12,9 +13,7 @@ public interface IProductService
     Task<ICollection<ProductListDto>> SearchProducts(string keyword, CancellationToken cancellationToken);
     Task<bool> ExistsByTitle(string title, CancellationToken cancellationToken);
     Task<bool> ChangeCategory(int productId, int newCategoryId, CancellationToken cancellationToken);
-
     Task<ICollection<AdminProductDto>> GetProductsForAdmin(CancellationToken cancellationToken);
-
     Task<ICollection<ProductDetailDto>> GetProductsWithAttributes(CancellationToken cancellationToken);
     Task ReduceStock(int productId, int quantity, CancellationToken cancellationToken);
     Task<bool> Delete(int id, CancellationToken cancellationToken);
@@ -22,5 +21,7 @@ public interface IProductService
     Task<int> GetProductsInStock(CancellationToken cancellationToken);
     Task<int> GetProductsRunningLow(CancellationToken cancellationToken);
     Task<int> GetProductsOutOfStock(CancellationToken cancellationToken);
-
+    Task<bool> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken);
+    Task<bool> EditImg(int id, string imgUrl, CancellationToken cancellationToken);
+    Task<string?> GetImg(int id, CancellationToken cancellationToken);
 }

@@ -24,6 +24,7 @@ using Shopify.Domain.Service;
 using Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 using Shopify.Presentation.RazorPages.Middleware;
+using Shopify.Presentation.RazorPages.Services.File;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,9 @@ builder.Services.AddScoped<IProductAttributeValueRepository, ProductAttributeVal
 builder.Services.AddScoped<IAddressAppService, AddressAppService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+
+
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 

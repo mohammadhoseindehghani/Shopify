@@ -10,6 +10,23 @@ namespace Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
 
 public class ProductRepository(AppDbContext context) : IProductRepository
 {
+    public async Task<bool> Add(CreateProductDto createProductDto, CancellationToken cancellationToken)
+    {
+        var product = new Product()
+        {
+            Title = createProductDto.Title,
+            CategoryId = createProductDto.CategoryId,
+            IsActive = true,
+            IsSpecial = createProductDto.IsSpecial,
+            ImageUrl = createProductDto.ImageUrl,
+            Price = createProductDto.Price,
+            ShortDescription = createProductDto.ShortDescription,
+            StockQuantity = createProductDto.StockQuantity
+        };
+        context.Add(product);
+        return await context.SaveChangesAsync(cancellationToken) > 0;
+    }
+
     public async Task<ProductDetailDto?> GetById(int id, CancellationToken cancellationToken)
     {
         return await context.Products
@@ -200,5 +217,34 @@ public class ProductRepository(AppDbContext context) : IProductRepository
     public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
     {
         return await context.Products.Where(p => p.StockQuantity == 0).CountAsync(cancellationToken);
+    }
+
+    public async Task<bool> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken)
+    {
+        var effectedRows = await context.Products.Where(p => p.Id == id)
+            .ExecuteUpdateAsync(setter => setter
+                .SetProperty(p => p.Title, editDto.Title)
+                .SetProperty(p => p.StockQuantity, editDto.StockQuantity)
+                .SetProperty(p => p.ShortDescription, editDto.ShortDescription)
+                .SetProperty(p => p.IsSpecial, editDto.IsSpecial)
+                .SetProperty(p => p.Price, editDto.Price)
+                .SetProperty(p => p.CategoryId, editDto.CategoryId)
+                .SetProperty(p => p.IsActive, editDto.IsActive)
+                , cancellationToken);
+        return effectedRows > 0;
+    }
+
+    public async Task<bool> EditImg(int id, string imgUrl, CancellationToken cancellationToken)
+    {
+        var effectedRows = await context.Products.Where(p => p.Id == id)
+            .ExecuteUpdateAsync(setter => setter
+                .SetProperty(p => p.ImageUrl, imgUrl), cancellationToken);
+        return effectedRows > 0;
+    }
+
+    public async Task<string?> GetImg(int id, CancellationToken cancellationToken)
+    {
+        return await context.Products.Where(p => p.Id == id).Select(p => p.ImageUrl)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

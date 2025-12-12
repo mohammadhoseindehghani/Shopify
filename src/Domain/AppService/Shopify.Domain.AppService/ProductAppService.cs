@@ -7,6 +7,18 @@ namespace Shopify.Domain.AppService;
 
 public class ProductAppService(IProductService productService) : IProductAppService
 {
+    public async Task<Result<bool>> Add(CreateProductDto createProductDto, CancellationToken cancellationToken)
+    {
+        //validation
+        var result = await productService.Add(createProductDto, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("خطا در اینجاد محصول");
+        }
+        return Result<bool>.Success(result,"محصول با موفقیت اینجاد شد");
+
+    }
+
     public async Task<Result<ProductDetailDto>> GetById(int id, CancellationToken cancellationToken)
     {
         var product =  await productService.GetById(id, cancellationToken);
@@ -90,5 +102,32 @@ public class ProductAppService(IProductService productService) : IProductAppServ
     public async Task<int> GetProductsOutOfStock(CancellationToken cancellationToken)
     {
         return await productService.GetProductsOutOfStock(cancellationToken);
+    }
+
+    public async Task<Result<bool>> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken)
+    {
+        //validation
+        var result = await productService.EditProduct(id, editDto, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("ادیت انجام نشد");
+        }
+        return Result<bool>.Success(result, "ادیت انجام شد");
+
+    }
+
+    public async Task<Result<bool>> EditImg(int id, string imgUrl, CancellationToken cancellationToken)
+    {
+        if (imgUrl.Length<5 || string.IsNullOrEmpty(imgUrl))
+        {
+            return Result<bool>.Failure("فرمنت ورودی عکس درست نیست");
+        }
+
+        var result = await productService.EditImg(id, imgUrl, cancellationToken);
+        if (!result)
+        {
+            return Result<bool>.Failure("ویرایش عکس با شکست مواجه شد");
+        }
+        return Result<bool>.Success(result,"ویرایش عکس انجام شد");
     }
 }

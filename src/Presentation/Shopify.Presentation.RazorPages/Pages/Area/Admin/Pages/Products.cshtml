@@ -6,6 +6,14 @@
 
 <div class="container-fluid p-4">
 
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show rounded-pill mb-4" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @Model.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="fw-bold text-gray-800">مدیریت محصولات</h4>
         <button class="btn btn-info text-white rounded-pill px-4 shadow-sm fw-bold" data-bs-toggle="modal" data-bs-target="#addProductModal">
@@ -52,7 +60,7 @@
                             <tr>
                                 <td class="ps-4">
                                     <div class="d-flex align-items-center">
-                                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "https://via.placeholder.com/50" : item.ImageUrl)"
+                                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "https://via.placeholder.com/50" : "/" + item.ImageUrl)"
                                              class="rounded-3 border me-3" width="50" height="50" style="object-fit: cover;">
                                         <div>
                                             <h6 class="mb-0 fw-bold text-gray-800 text-sm">@item.Title</h6>
@@ -60,11 +68,8 @@
                                         </div>
                                     </div>
                                 </td>
-
                                 <td><span class="badge bg-light text-dark border">@item.CategoryName</span></td>
-
                                 <td class="fw-bold text-cyan-700">@item.Price.ToString("N0")</td>
-
                                 <td class="text-center">
                                     <span class="d-block fw-bold">@item.StockQuantity</span>
                                     @{
@@ -75,7 +80,6 @@
                                         <div class="progress-bar @progressColor" role="progressbar" style="width: @width%"></div>
                                     </div>
                                 </td>
-
                                 <td class="text-center">
                                     @if (item.IsActive)
                                     {
@@ -86,13 +90,17 @@
                                         <span class="badge bg-danger-subtle text-danger rounded-pill px-3">غیرفعال</span>
                                     }
                                 </td>
-
                                 <td class="text-end pe-4">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-light border rounded-circle" data-bs-toggle="dropdown">
                                             <i class="bi bi-three-dots-vertical"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                            <li>
+                                                <button class="dropdown-item text-sm" onclick="openImageModal(@item.Id)">
+                                                    <i class="bi bi-image me-2 text-primary"></i>تغییر تصویر
+                                                </button>
+                                            </li>
                                             <li>
                                                 <button class="dropdown-item text-sm" onclick="openCategoryModal(@item.Id, @item.CategoryId)">
                                                     <i class="bi bi-tags me-2 text-warning"></i>تغییر دسته‌بندی
@@ -104,9 +112,24 @@
                                                 </button>
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item text-sm" href="#"><i class="bi bi-pencil me-2 text-primary"></i>ویرایش کامل</a></li>
+
                                             <li>
-                                                <form method="post" asp-page-handler="Delete" onsubmit="return confirm('حذف شود؟')">
+                                                <button class="dropdown-item text-sm"
+                                                        onclick="openEditModal(this)"
+                                                        data-id="@item.Id"
+                                                        data-title="@item.Title"
+                                                        data-price="@item.Price"
+                                                        data-stock="@item.StockQuantity"
+                                                        data-category="@item.CategoryId"
+                                                        data-active="@item.IsActive.ToString().ToLower()"
+                                                        data-special="@item.IsSpecial.ToString().ToLower()"
+                                                         data-desc="@item.ShortDescription"> 
+                                                    <i class="bi bi-pencil me-2 text-primary"></i>ویرایش کامل
+                                                </button>
+                                            </li>
+
+                                            <li>
+                                                <form method="post" asp-page-handler="Delete" onsubmit="return confirm('آیا از حذف این محصول اطمینان دارید؟')">
                                                     <input type="hidden" name="id" value="@item.Id" />
                                                     <button class="dropdown-item text-sm text-danger"><i class="bi bi-trash me-2"></i>حذف محصول</button>
                                                 </form>
@@ -133,11 +156,9 @@
             <form method="post" asp-page-handler="ChangeCategory">
                 <div class="modal-body">
                     <input type="hidden" name="productId" id="catModalProductId">
-
                     <div class="mb-3">
                         <label class="form-label text-sm text-gray-600">دسته‌بندی جدید:</label>
-                        <select name="newCategoryId" id="catModalSelect" class="form-select bg-gray-50" asp-items="Model.Categories">
-                        </select>
+                        <select name="newCategoryId" id="catModalSelect" class="form-select bg-gray-50" asp-items="Model.Categories"></select>
                     </div>
                 </div>
                 <div class="modal-footer border-top-0">
@@ -162,7 +183,6 @@
                     <div class="alert alert-info border-0 py-2 text-sm mb-3">
                         محصول: <strong id="attrModalProductName">...</strong>
                     </div>
-
                     <div class="row g-2">
                         <div class="col-md-5">
                             <label class="form-label text-sm text-gray-600">نام ویژگی</label>
@@ -183,6 +203,89 @@
     </div>
 </div>
 
+<div class="modal fade" id="editImageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">تغییر تصویر محصول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="EditImg" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="imgModalProductId">
+
+                    <div class="mb-3">
+                        <label for="newImageFile" class="form-label text-sm text-gray-600">انتخاب فایل عکس جدید:</label>
+                        <input type="file" name="NewImageFile" id="newImageFile" class="form-control" accept="image/*" required>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">آپلود و ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editProductModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold">ویرایش محصول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-page-handler="Edit">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editId">
+
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label text-sm text-gray-600">عنوان محصول</label>
+                            <input type="text" name="EditProductInput.Title" id="editTitle" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label text-sm text-gray-600">دسته‌بندی</label>
+                            <select name="EditProductInput.CategoryId" id="editCategory" class="form-select" asp-items="Model.Categories"></select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-sm text-gray-600">قیمت (تومان)</label>
+                            <input type="number" name="EditProductInput.Price" id="editPrice" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-sm text-gray-600">موجودی انبار</label>
+                            <input type="number" name="EditProductInput.StockQuantity" id="editStock" class="form-control" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label text-sm text-gray-600">توضیحات کوتاه</label>
+                            <textarea name="EditProductInput.ShortDescription" id="editDesc" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox" name="EditProductInput.IsActive" id="editIsActive" value="true">
+                                <label class="form-check-label" for="editIsActive">محصول فعال باشد</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check form-switch mt-3">
+                                <input class="form-check-input" type="checkbox" name="EditProductInput.IsSpecial" id="editIsSpecial" value="true">
+                                <label class="form-check-label" for="editIsSpecial">محصول ویژه</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-success rounded-pill px-4">ذخیره تغییرات</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="addProductModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -191,28 +294,55 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>فرم ایجاد محصول اینجا قرار می‌گیرد...</p>
+                <p>فرم ایجاد محصول...</p>
             </div>
         </div>
     </div>
 </div>
 
+
 @section Scripts {
     <script>
         function openCategoryModal(productId, currentCategoryId) {
             document.getElementById('catModalProductId').value = productId;
-
             const select = document.getElementById('catModalSelect');
             if(select) select.value = currentCategoryId;
-
             new bootstrap.Modal(document.getElementById('changeCategoryModal')).show();
         }
 
         function openAttributeModal(productId, productName) {
             document.getElementById('attrModalProductId').value = productId;
             document.getElementById('attrModalProductName').innerText = productName;
-
             new bootstrap.Modal(document.getElementById('addAttributeModal')).show();
+        }
+
+        function openImageModal(productId) {
+            document.getElementById('imgModalProductId').value = productId;
+            document.getElementById('newImageFile').value = '';
+            new bootstrap.Modal(document.getElementById('editImageModal')).show();
+        }
+
+        function openEditModal(button) {
+            const id = button.getAttribute('data-id');
+            const title = button.getAttribute('data-title');
+            const price = button.getAttribute('data-price');
+            const stock = button.getAttribute('data-stock');
+            const category = button.getAttribute('data-category');
+            const desc = button.getAttribute('data-desc');
+            const isActive = button.getAttribute('data-active') === 'true';
+            const isSpecial = button.getAttribute('data-special') === 'true';
+
+            document.getElementById('editId').value = id;
+            document.getElementById('editTitle').value = title;
+            document.getElementById('editPrice').value = price;
+            document.getElementById('editStock').value = stock;
+            document.getElementById('editCategory').value = category;
+            document.getElementById('editDesc').value = desc;
+
+            document.getElementById('editIsActive').checked = isActive;
+            document.getElementById('editIsSpecial').checked = isSpecial;
+
+            new bootstrap.Modal(document.getElementById('editProductModal')).show();
         }
     </script>
 }
