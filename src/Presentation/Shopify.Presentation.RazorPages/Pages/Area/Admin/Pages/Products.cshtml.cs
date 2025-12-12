@@ -16,6 +16,8 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
 
         [BindProperty]
         public EditProductDto EditProductInput { get; set; }
+        [BindProperty]
+        public CreateProductDto CreateProductInput { get; set; }
 
         [BindProperty]
         public IFormFile? NewImageFile { get; set; }
@@ -25,6 +27,33 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
             Products = await productAppService.GetProductsForAdmin(cancellationToken);
             var cats = await categoryAppService.GetAll(cancellationToken);
             Categories = new SelectList(cats, "Id", "Name");
+        }
+
+        public async Task<IActionResult> OnPostAdd(CancellationToken cancellationToken)
+        {
+            if (NewImageFile == null || NewImageFile.Length == 0)
+            {
+                ErrorMessage = "لطفاً یک فایل تصویر انتخاب کنید.";
+                await OnGet(cancellationToken);
+                return Page();
+            }
+
+            var imgUrl = await fileService.Upload(NewImageFile, "products", cancellationToken);
+
+            CreateProductInput.ImageUrl = imgUrl;
+
+            var result = await productAppService.Add(CreateProductInput, cancellationToken);
+
+            if (!result.IsSuccess)
+            {
+                await fileService.Delete(imgUrl, cancellationToken);
+
+                ErrorMessage = result.Message;
+                await OnGet(cancellationToken);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
         public async Task<IActionResult> OnPostChangeCategory(int productId, int newCategoryId, CancellationToken cancellationToken)
@@ -46,7 +75,7 @@ namespace Shopify.Presentation.RazorPages.Pages.Area.Admin.Pages
             if (!result.IsSuccess)
             {
                 ErrorMessage = result.Message;
-                await OnGet(cancellationToken); 
+                await OnGet(cancellationToken);
                 return Page();
             }
             return RedirectToPage();
