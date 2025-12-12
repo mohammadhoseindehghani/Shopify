@@ -1,13 +1,13 @@
-﻿using Shopify.Domain.Core._common;
+﻿using Microsoft.Extensions.Logging;
+using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.UserAgg.AppService;
 using Shopify.Domain.Core.UserAgg.Dto;
-using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Framework;
 
 namespace Shopify.Domain.AppService;
 
-public class UserAppService(IUserService userService) : IUserAppService
+public class UserAppService(IUserService userService, ILogger logger) : IUserAppService
 {
     public async Task<Result<UserDto>> GetById(int id, CancellationToken cancellationToken)
     {
@@ -63,8 +63,10 @@ public class UserAppService(IUserService userService) : IUserAppService
         var result = await userService.Add(userDto, cancellationToken);
         if (!result)
         {
+            logger.LogError($"افزودن کاربر جدید با خطا مواجه شد ورودی: {userDto}");
             return Result<bool>.Failure("خطا در عملیات");
         }
+        logger.LogInformation($"کاربر جدید با موفقیت ایجاد شد. نام کاربری: {userDto.Phone}");
         return Result<bool>.Success(result, "کاربر با موفقیت اینجاد شد");
     }
 
@@ -79,6 +81,7 @@ public class UserAppService(IUserService userService) : IUserAppService
         {
             return Result<bool>.Failure("خطا در عملیات");
         }
+        logger.LogInformation($"کیف پول کاربر {userId} به مبلغ {amount} با موفقیت شارژ شد.");
         return Result<bool>.Success(result, "حساب کاربر با موفقیت با موفقیت شارژ شد");
     }
 
@@ -110,7 +113,7 @@ public class UserAppService(IUserService userService) : IUserAppService
         {
             return Result<UserDto>.Failure("شماره همراه یا پسورد اشتباه می باشد");
         }
-
+        logger.LogInformation($"ورود موفقیت آمیز کاربر با شماره {phone}");
         return Result<UserDto>.Success(user);
     }
 

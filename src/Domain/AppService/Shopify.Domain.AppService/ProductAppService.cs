@@ -1,11 +1,12 @@
-﻿using Shopify.Domain.Core._common;
+﻿using Microsoft.Extensions.Logging;
+using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.ProductAgg.AppService;
 using Shopify.Domain.Core.ProductAgg.Dto;
 using Shopify.Domain.Core.ProductAgg.Service;
 
 namespace Shopify.Domain.AppService;
 
-public class ProductAppService(IProductService productService) : IProductAppService
+public class ProductAppService(IProductService productService, ILogger logger) : IProductAppService
 {
     public async Task<Result<bool>> Add(CreateProductDto createProductDto, CancellationToken cancellationToken)
     {
@@ -13,8 +14,10 @@ public class ProductAppService(IProductService productService) : IProductAppServ
         var result = await productService.Add(createProductDto, cancellationToken);
         if (!result)
         {
+            logger.LogError($"خطا در افزودن محصول. ورودی داده شده: {createProductDto}");
             return Result<bool>.Failure("خطا در اینجاد محصول");
         }
+        logger.LogInformation($"محصول جدید با عنوان {createProductDto.Title} با موفقیت ایجاد شد.");
         return Result<bool>.Success(result,"محصول با موفقیت اینجاد شد");
 
     }
@@ -54,7 +57,7 @@ public class ProductAppService(IProductService productService) : IProductAppServ
         {
             return Result<bool>.Failure("خطا در عملیات");
         }
-
+        logger.LogWarning($"دسته‌بندی محصول {productId} با موفقیت به دسته‌بندی {newCategoryId} تغییر یافت.");
         return Result<bool>.Success(result);
     }
 
@@ -106,14 +109,28 @@ public class ProductAppService(IProductService productService) : IProductAppServ
 
     public async Task<Result<bool>> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken)
     {
-        //validation
+        var oldStock = await productService.GetCurrentStockQuantity(id, cancellationToken);
+        var newStock = editDto.StockQuantity;
+
         var result = await productService.EditProduct(id, editDto, cancellationToken);
+
         if (!result)
         {
+            logger.LogError($"ویرایش محصول {id} با شکست مواجه شد. داده‌های ورودی: {editDto}");
             return Result<bool>.Failure("ادیت انجام نشد");
         }
-        return Result<bool>.Success(result, "ادیت انجام شد");
 
+        if (newStock < 5 && oldStock >= 5)
+        {
+            logger.LogWarning($" موجودی محصول {id} به سطح هشدار رسید. مقدار جدید: {newStock} (قبلی: {oldStock})");
+        }
+        else if (newStock > oldStock + 100)
+        {
+            logger.LogWarning($" افزایش قابل توجه موجودی محصول {id} از {oldStock} به {newStock} ثبت شد.");
+        }
+
+        logger.LogInformation($"محصول {id} با موفقیت ویرایش شد عنوان جدید: {editDto.Title}");
+        return Result<bool>.Success(result, "ادیت انجام شد");
     }
 
     public async Task<Result<bool>> EditImg(int id, string imgUrl, CancellationToken cancellationToken)

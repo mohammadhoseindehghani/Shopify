@@ -25,4 +25,5 @@ public interface IProductRepository
     Task<bool> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken);
     Task<bool> EditImg(int id, string imgUrl, CancellationToken cancellationToken);
     Task<string?> GetImg(int id, CancellationToken cancellationToken);
+    Task<int> GetCurrentStockQuantity(int id, CancellationToken cancellationToken);
 }

@@ -247,4 +247,10 @@ public class ProductRepository(AppDbContext context) : IProductRepository
         return await context.Products.Where(p => p.Id == id).Select(p => p.ImageUrl)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<int> GetCurrentStockQuantity(int id, CancellationToken cancellationToken)
+    {
+        return await context.Products.Where(p => p.Id == id)
+            .Select(p => p.StockQuantity).FirstOrDefaultAsync(cancellationToken);
+    }
 }

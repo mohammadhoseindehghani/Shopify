@@ -101,8 +101,13 @@ public class ProductService(IProductRepository productRepository) : IProductServ
         return await productRepository.EditImg(id, imgUrl, cancellationToken);
     }
 
-    public  async Task<string> GetImg(int id, CancellationToken cancellationToken)
+    public  async Task<string?> GetImg(int id, CancellationToken cancellationToken)
     {
         return await productRepository.GetImg(id, cancellationToken);
+    }
+
+    public async Task<int> GetCurrentStockQuantity(int id, CancellationToken cancellationToken)
+    {
+        return await productRepository.GetCurrentStockQuantity(id, cancellationToken);
     }
 }

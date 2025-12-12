@@ -1,5 +1,6 @@
 ﻿using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.ProductAgg.Dto;
+using System.Threading;
 
 namespace Shopify.Domain.Core.ProductAgg.AppService;
 
@@ -22,5 +23,4 @@ public interface IProductAppService
     Task<int> GetProductsOutOfStock(CancellationToken cancellationToken);
     Task<Result<bool>> EditProduct(int id, EditProductDto editDto, CancellationToken cancellationToken);
     Task<Result<bool>> EditImg(int id, string imgUrl, CancellationToken cancellationToken);
-
 }
