@@ -7,7 +7,7 @@ using Shopify.Framework;
 
 namespace Shopify.Domain.AppService;
 
-public class UserAppService(IUserService userService, ILogger logger) : IUserAppService
+public class UserAppService(IUserService userService, ILogger<UserAppService> logger) : IUserAppService
 {
     public async Task<Result<UserDto>> GetById(int id, CancellationToken cancellationToken)
     {
@@ -115,6 +115,17 @@ public class UserAppService(IUserService userService, ILogger logger) : IUserApp
         }
         logger.LogInformation($"ورود موفقیت آمیز کاربر با شماره {phone}");
         return Result<UserDto>.Success(user);
+    }
+
+    public async Task<Result<bool>> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
+    {
+        //validation
+        var result = await userService.Register(userDto, cancellationToken);
+        if (!result)
+        {
+           return Result<bool>.Failure("خطا در عملیات ثبت نام");
+        }
+        return Result<bool>.Success(result,"ثبت نام با موفقیت انجام شد");
     }
 
     public async Task<int> UserCount(CancellationToken cancellationToken)

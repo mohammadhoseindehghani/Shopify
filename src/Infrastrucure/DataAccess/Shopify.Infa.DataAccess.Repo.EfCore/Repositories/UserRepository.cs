@@ -160,4 +160,19 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 OrderCount = u.Orders.Count()
             }).FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<bool> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
+    {
+        var user = new User()
+        {
+            FirstName = userDto.FirstName,
+            LastName = userDto.LastName,
+            Phone = userDto.Phone,
+            PasswordHash = userDto.Password,
+            Role = RoleEnum.Customer,
+            IsActive = true
+        };
+        context.Add(user);
+        return await context.SaveChangesAsync(cancellationToken) > 0;
+    }
 }

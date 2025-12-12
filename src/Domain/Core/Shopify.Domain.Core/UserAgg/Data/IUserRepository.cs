@@ -1,4 +1,5 @@
-﻿using Shopify.Domain.Core.UserAgg.Dto;
+﻿using Shopify.Domain.Core._common;
+using Shopify.Domain.Core.UserAgg.Dto;
 
 namespace Shopify.Domain.Core.UserAgg.Data;
 
@@ -15,4 +16,5 @@ public interface IUserRepository
     Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken);
     Task<int> UserCount(CancellationToken cancellationToken);
     Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken);
+    Task<bool> Register(RegisterUserDto userDto, CancellationToken cancellationToken);
 }

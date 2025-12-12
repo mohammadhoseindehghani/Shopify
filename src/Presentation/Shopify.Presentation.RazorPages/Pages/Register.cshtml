@@ -1,8 +1,10 @@
 ﻿@page
 @model Shopify.Presentation.RazorPages.Pages.RegisterModel
 @{
-    Layout = "Shared/_ShopLayout";
+    ViewData["Title"] = "ثبت نام";
+    Layout = "Shared/_ShopLayout"; 
 }
+
 <div class="container d-flex justify-content-center py-5">
     <div class="auth-card">
 
@@ -13,27 +15,42 @@
 
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white">
             <div class="card-body p-4 p-md-5">
-                <form action="#" method="POST">
+                <form method="post">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3 text-sm fw-bold text-center"></div>
+
 
                     <div class="mb-3">
-                        <label class="form-label text-gray-600 text-sm fw-bold">نام کاربری</label>
-                        <input type="text" class="form-control bg-gray-50" placeholder="مثلا: ali_rezaei" required>
+                        <label asp-for="Firstname" class="form-label text-gray-600 text-sm fw-bold">نام</label>
+                        <input asp-for="Firstname" type="text" class="form-control bg-gray-50" placeholder="مثلا: علی" required>
+                        <span asp-validation-for="Firstname" class="text-danger text-xs"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label text-gray-600 text-sm fw-bold">ایمیل (اختیاری)</label>
-                        <input type="email" class="form-control bg-gray-50" placeholder="name@example.com">
+                        <label asp-for="Lastname" class="form-label text-gray-600 text-sm fw-bold">نام خانوادگی</label>
+                        <input asp-for="Lastname" type="text" class="form-control bg-gray-50" placeholder="مثلا: رضایی" required>
+                        <span asp-validation-for="Lastname" class="text-danger text-xs"></span>
                     </div>
 
+
                     <div class="mb-3">
-                        <label class="form-label text-gray-600 text-sm fw-bold">رمز عبور</label>
-                        <input type="password" class="form-control bg-gray-50" required>
+                        <label asp-for="Phone" class="form-label text-gray-600 text-sm fw-bold">شماره تلفن</label>
+                        <input asp-for="Phone" type="tel" class="form-control bg-gray-50" placeholder="مثلا: 0912xxxxxxx" required>
+                        <span asp-validation-for="Phone" class="text-danger text-xs"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label text-gray-600 text-sm fw-bold">رمز عبور</label>
+                        <input asp-for="Password" type="password" class="form-control bg-gray-50" required>
                         <div class="form-text text-xs text-muted">حداقل ۶ کاراکتر</div>
+                        <span asp-validation-for="Password" class="text-danger text-xs"></span>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label text-gray-600 text-sm fw-bold">تکرار رمز عبور</label>
-                        <input type="password" class="form-control bg-gray-50" required>
+                        <label asp-for="RePassword" class="form-label text-gray-600 text-sm fw-bold">تکرار رمز عبور</label>
+                        <input asp-for="RePassword" type="password" class="form-control bg-gray-50" required>
+                        <span asp-validation-for="RePassword" class="text-danger text-xs"></span>
                     </div>
 
                     <div class="form-check mb-4">
@@ -50,9 +67,15 @@
 
                 <div class="text-center mt-3">
                     <span class="text-muted text-sm">قبلاً ثبت‌نام کرده‌اید؟</span>
-                    <a href="login.html" class="text-cyan-700 fw-bold text-decoration-none ms-1">وارد شوید</a>
+                    <a asp-page="/Login" class="text-cyan-700 fw-bold text-decoration-none ms-1">وارد شوید</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

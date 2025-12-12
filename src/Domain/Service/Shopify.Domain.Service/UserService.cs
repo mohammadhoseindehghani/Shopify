@@ -59,4 +59,9 @@ public class UserService(IUserRepository userRepository) : IUserService
     {
         return await userRepository.GetUserDetail(id, cancellationToken);
     }
+
+    public async Task<bool> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
+    {
+        return await userRepository.Register(userDto, cancellationToken);
+    }
 }

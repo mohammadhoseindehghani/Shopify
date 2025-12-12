@@ -6,7 +6,7 @@ using Shopify.Domain.Core.ProductAgg.Service;
 
 namespace Shopify.Domain.AppService;
 
-public class ProductAppService(IProductService productService, ILogger logger) : IProductAppService
+public class ProductAppService(IProductService productService, ILogger<ProductAppService> logger) : IProductAppService
 {
     public async Task<Result<bool>> Add(CreateProductDto createProductDto, CancellationToken cancellationToken)
     {
