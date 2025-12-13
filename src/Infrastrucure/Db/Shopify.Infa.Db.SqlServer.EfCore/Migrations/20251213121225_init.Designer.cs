@@ -12,7 +12,7 @@ using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251201132421_init")]
+    [Migration("20251213121225_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -20,10 +20,143 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.0")
+                .HasAnnotation("ProductVersion", "10.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
 
             modelBuilder.Entity("Shopify.Domain.Core.CartAgg.Entities.Cart", b =>
                 {
@@ -43,9 +176,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -80,12 +210,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
@@ -118,9 +242,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -195,9 +316,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,0)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -267,9 +385,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,0)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -388,9 +503,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -403,7 +515,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 1,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "iphone14pro.jpg",
+                            ImageUrl = "images/products/iphone14pro.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = true,
@@ -417,7 +529,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 2,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "s23.jpg",
+                            ImageUrl = "images/products/s23.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
@@ -431,7 +543,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 3,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "macbookm2.jpg",
+                            ImageUrl = "images/products/macbookm2.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = true,
@@ -445,7 +557,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 4,
                             CategoryId = 2,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "dellxps13.jpg",
+                            ImageUrl = "images/products/dellxps13.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
@@ -459,7 +571,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 5,
                             CategoryId = 4,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "airpodspro2.jpg",
+                            ImageUrl = "images/products/airpodspro2.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = true,
@@ -473,7 +585,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 6,
                             CategoryId = 4,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "xm5.jpg",
+                            ImageUrl = "images/products/xm5.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
@@ -487,7 +599,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 7,
                             CategoryId = 5,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "watch6.jpg",
+                            ImageUrl = "images/products/watch6.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
@@ -501,7 +613,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 8,
                             CategoryId = 5,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "applewatch9.jpg",
+                            ImageUrl = "images/products/applewatch9.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = true,
@@ -515,21 +627,21 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 9,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "rogphone7.jpg",
+                            ImageUrl = "images/products/rogphone7.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
                             Price = 75000000m,
                             ShortDescription = "Gaming smartphone with powerful specs",
                             StockQuantity = 10,
-                            Title = "Asus ROG Phone 7"
+                            Title = "Asus ROG PhoneNumber 7"
                         },
                         new
                         {
                             Id = 10,
                             CategoryId = 3,
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ImageUrl = "redminote12.jpg",
+                            ImageUrl = "images/products/redminote12.jpg",
                             IsActive = true,
                             IsDeleted = false,
                             IsSpecial = false,
@@ -561,9 +673,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -656,9 +765,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("ProductAttributes", (string)null);
@@ -750,9 +856,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<int>("UnitNumber")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -849,8 +952,15 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -859,8 +969,11 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -871,6 +984,9 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -879,97 +995,215 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            AccessFailedCount = 0,
                             Balance = 0m,
+                            ConcurrencyStamp = "abf5e7e0-5745-4907-b1a9-19a355a4062b",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@shop.com",
+                            EmailConfirmed = false,
                             FirstName = "Admin",
                             ImgUrl = "default.jpg",
+                            IsActive = false,
                             IsDeleted = false,
                             LastName = "User",
+                            LockoutEnabled = false,
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
-                            Phone = "09120000001",
-                            Role = 3
+                            PhoneNumber = "09120000001",
+                            PhoneNumberConfirmed = false,
+                            Role = 3,
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = 2,
+                            AccessFailedCount = 0,
                             Balance = 0m,
+                            ConcurrencyStamp = "3e8c53a4-555f-42e0-9946-ad7f47f74f08",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "operator@shop.com",
+                            EmailConfirmed = false,
                             FirstName = "Operator",
                             ImgUrl = "default.jpg",
+                            IsActive = false,
                             IsDeleted = false,
                             LastName = "User",
+                            LockoutEnabled = false,
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
-                            Phone = "09120000002",
-                            Role = 2
+                            PhoneNumber = "09120000002",
+                            PhoneNumberConfirmed = false,
+                            Role = 2,
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = 3,
+                            AccessFailedCount = 0,
                             Balance = 0m,
+                            ConcurrencyStamp = "88de6762-f2d3-4fd3-bdc3-7a1fff0b730e",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user1@gmail.com",
+                            EmailConfirmed = false,
                             FirstName = "Ali",
                             ImgUrl = "default.jpg",
+                            IsActive = false,
                             IsDeleted = false,
                             LastName = "Ahmadi",
+                            LockoutEnabled = false,
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
-                            Phone = "09120000003",
-                            Role = 1
+                            PhoneNumber = "09120000003",
+                            PhoneNumberConfirmed = false,
+                            Role = 1,
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = 4,
+                            AccessFailedCount = 0,
                             Balance = 0m,
+                            ConcurrencyStamp = "a9c75bb5-bb87-4981-8cc3-02186a4eaacb",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@gmail.com",
+                            EmailConfirmed = false,
                             FirstName = "Reza",
                             ImgUrl = "default.jpg",
+                            IsActive = false,
                             IsDeleted = false,
                             LastName = "Moradi",
+                            LockoutEnabled = false,
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
-                            Phone = "09120000004",
-                            Role = 1
+                            PhoneNumber = "09120000004",
+                            PhoneNumberConfirmed = false,
+                            Role = 1,
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = 5,
+                            AccessFailedCount = 0,
                             Balance = 0m,
+                            ConcurrencyStamp = "22ccd121-5340-4016-8396-89b0bd59c869",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@gmail.com",
+                            EmailConfirmed = false,
                             FirstName = "Sara",
                             ImgUrl = "default.jpg",
+                            IsActive = false,
                             IsDeleted = false,
                             LastName = "Karimi",
+                            LockoutEnabled = false,
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
-                            Phone = "09120000005",
-                            Role = 1
+                            PhoneNumber = "09120000005",
+                            PhoneNumberConfirmed = false,
+                            Role = 1,
+                            TwoFactorEnabled = false
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Shopify.Domain.Core.UserAgg.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Shopify.Domain.Core.UserAgg.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Shopify.Domain.Core.UserAgg.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Shopify.Domain.Core.UserAgg.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shopify.Domain.Core.CartAgg.Entities.Cart", b =>
@@ -986,7 +1220,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     b.HasOne("Shopify.Domain.Core.CartAgg.Entities.Cart", "Cart")
                         .WithMany("Items")
                         .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shopify.Domain.Core.ProductAgg.Entities.Product", "Product")

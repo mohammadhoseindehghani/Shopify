@@ -12,7 +12,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
         builder.ToTable("Users");
         builder.HasKey(u => u.Id);
 
-        builder.Property(u => u.Phone)
+        builder.Property(u => u.PhoneNumber)
             .IsRequired()
             .HasMaxLength(20);
         builder.Property(u => u.Email)
@@ -47,7 +47,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
             new User
             {
                 Id = 1,
-                Phone = "09120000001",
+                PhoneNumber = "09120000001",
                 Email = "admin@shop.com",
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", //123456789
                 FirstName = "Admin",
@@ -59,7 +59,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
             new User
             {
                 Id = 2,
-                Phone = "09120000002",
+                PhoneNumber = "09120000002",
                 Email = "operator@shop.com",
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Operator",
@@ -71,7 +71,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
             new User
             {
                 Id = 3,
-                Phone = "09120000003",
+                PhoneNumber = "09120000003",
                 Email = "user1@gmail.com",
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Ali",
@@ -83,7 +83,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
             new User
             {
                 Id = 4,
-                Phone = "09120000004",
+                PhoneNumber = "09120000004",
                 Email = "user2@gmail.com",
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Reza",
@@ -95,7 +95,7 @@ public class UserConfigs : IEntityTypeConfiguration<User>
             new User
             {
                 Id = 5,
-                Phone = "09120000005",
+                PhoneNumber = "09120000005",
                 Email = "user3@gmail.com",
                 PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                 FirstName = "Sara",

@@ -19,7 +19,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
@@ -31,14 +31,14 @@ public class UserRepository(AppDbContext context) : IUserRepository
     public async Task<UserDto?> GetByPhone(string phone, CancellationToken cansCancellationToken)
     {
         return await context.Users
-            .Where(u => u.Phone == phone)
+            .Where(u => u.PhoneNumber == phone)
             .Select(u => new UserDto
             {
                 Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
@@ -56,7 +56,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
@@ -80,7 +80,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
             FirstName = userDto.FirstName,
             LastName = userDto.LastName,
             Email = userDto.Email,
-            Phone = userDto.Phone,
+            PhoneNumber = userDto.Phone,
             PasswordHash = userDto.Password,
             ImgUrl = userDto.ImgUrl,
             Role = RoleEnum.Customer,
@@ -109,14 +109,14 @@ public class UserRepository(AppDbContext context) : IUserRepository
     public async Task<UserWithPasswordDto?> GetByUserNameForLogin(string username, CancellationToken cancellationToken)
     {
         return await context.Users
-            .Where(u => u.Phone == username)
+            .Where(u => u.PhoneNumber == username)
             .Select(u => new UserWithPasswordDto
             {
                 Id = u.Id,
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
@@ -151,7 +151,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 FirstName = u.FirstName,
                 LastName = u.LastName,
                 Email = u.Email,
-                Phone = u.Phone,
+                Phone = u.PhoneNumber,
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
@@ -167,7 +167,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
         {
             FirstName = userDto.FirstName,
             LastName = userDto.LastName,
-            Phone = userDto.Phone,
+            PhoneNumber = userDto.Phone,
             PasswordHash = userDto.Password,
             Role = RoleEnum.Customer,
             IsActive = true

@@ -1,17 +1,22 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Shopify.Domain.Core._common;
 using Shopify.Domain.Core.UserAgg.AppService;
 using Shopify.Domain.Core.UserAgg.Dto;
+using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Framework;
 
 namespace Shopify.Domain.AppService;
 
-public class UserAppService(IUserService userService, ILogger<UserAppService> logger) : IUserAppService
+public class UserAppService(IUserService userService,
+    ILogger<UserAppService> logger,
+    SignInManager<User> signInManager,
+    UserManager<User> userManager) : IUserAppService
 {
     public async Task<Result<UserDto>> GetById(int id, CancellationToken cancellationToken)
     {
-        var user = await userService.GetById(id,cancellationToken);
+        var user = await userService.GetById(id, cancellationToken);
         if (user is null)
         {
             return Result<UserDto>.Failure("با این نام کاربری کاربری یافت نشد");
@@ -23,7 +28,7 @@ public class UserAppService(IUserService userService, ILogger<UserAppService> lo
 
     public async Task<Result<UserDto>> GetByPhone(string phone, CancellationToken cansCancellationToken)
     {
-        var user = await userService.GetByPhone(phone,cansCancellationToken);
+        var user = await userService.GetByPhone(phone, cansCancellationToken);
         if (user is null)
         {
             return Result<UserDto>.Failure("با این شماره تلفن کاربری یافت نشد");
@@ -72,7 +77,7 @@ public class UserAppService(IUserService userService, ILogger<UserAppService> lo
 
     public async Task<Result<bool>> ChargeWallet(int userId, decimal amount, CancellationToken cancellationToken)
     {
-        if (amount <=0)
+        if (amount <= 0)
         {
             return Result<bool>.Failure("مقدار ورودی برای شارژ نامعتبر است");
         }
@@ -102,31 +107,41 @@ public class UserAppService(IUserService userService, ILogger<UserAppService> lo
 
 
 
-        var user =await userService.GetByPhoneForLogin(phone, cancellationToken);
-        if (user is null)
-        {
-            return Result<UserDto>.Failure("شماره همراه یا پسورد اشتباه می باشد");
-        }
+        var result = await signInManager.PasswordSignInAsync(phone, password, false, false);
 
-        var verifyPassword = PasswordHasherSha256.VerifyPassword(password, user.PasswordHash);
-        if (!verifyPassword)
+        if (!result.Succeeded)
         {
             return Result<UserDto>.Failure("شماره همراه یا پسورد اشتباه می باشد");
         }
+        var user = await userService.GetByPhoneForLogin(phone, cancellationToken);
         logger.LogInformation($"ورود موفقیت آمیز کاربر با شماره {phone}");
-        return Result<UserDto>.Success(user);
+        return Result<UserDto>.Success(user,"شماره همراه یا پسورد اشتباه می باشد");
+
     }
 
     public async Task<Result<bool>> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
     {
-        //validation
-        userDto.Password = PasswordHasherSha256.HashPassword(userDto.Password);
-        var result = await userService.Register(userDto, cancellationToken);
-        if (!result)
+        var user = new User()
         {
-           return Result<bool>.Failure("خطا در عملیات ثبت نام");
+            FirstName = userDto.FirstName,
+            LastName = userDto.LastName,
+            PhoneNumber = userDto.Phone,
+            UserName = userDto.Phone,
+            Email = "test@email.com"
+        };
+
+        var result = await userManager.CreateAsync(user, userDto.Password);
+
+        if (result.Succeeded)
+        {
+            return Result<bool>.Success(result.Succeeded, "ثبت نام با موفقیت انجام شد");
         }
-        return Result<bool>.Success(result,"ثبت نام با موفقیت انجام شد");
+        else
+        {
+            var errorMessage = string.Join(", ", result.Errors.Select(e => e.Description));
+
+            return Result<bool>.Failure(errorMessage);
+        }
     }
 
     public async Task<int> UserCount(CancellationToken cancellationToken)

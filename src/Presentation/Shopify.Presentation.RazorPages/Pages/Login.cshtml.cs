@@ -27,21 +27,6 @@ namespace Shopify.Presentation.RazorPages.Pages
                 return Page(); 
             }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, result.Data!.Id.ToString()),
-                new Claim(ClaimTypes.Name, result.Data.FirstName),
-                new Claim(ClaimTypes.Role, result.Data.Role.ToString()),
-                new Claim("Phone", result.Data.Phone)
-            };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-
-
             int guestId = 0;
             if (Request.Cookies.TryGetValue("CartGuestId", out string? cookieValue))
             {

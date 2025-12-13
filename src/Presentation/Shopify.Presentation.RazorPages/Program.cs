@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Serilog;
 using Shopify.Domain.AppService;
 using Shopify.Domain.Core.CartAgg.AppService;
@@ -19,8 +21,10 @@ using Shopify.Domain.Core.ProductAttributeAgg.Data;
 using Shopify.Domain.Core.ProductAttributeAgg.Service;
 using Shopify.Domain.Core.UserAgg.AppService;
 using Shopify.Domain.Core.UserAgg.Data;
+using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Domain.Service;
+using Shopify.Framework;
 using Shopify.Infa.DataAccess.Repo.EfCore.Repositories;
 using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 using Shopify.Presentation.RazorPages.Middleware;
@@ -36,7 +40,8 @@ builder.Host.UseSerilog((context, configuration) =>
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"))
+        .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning)));
 
 builder.Services.AddScoped<IUserAppService, UserAppService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -87,11 +92,29 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Login";          
-        options.AccessDeniedPath = "/AccessDenied"; 
+        options.LoginPath = "/Login";
+        options.AccessDeniedPath = "/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
         options.SlidingExpiration = true;
     });
+
+builder.Services.AddIdentity<User, IdentityRole<int>>(
+        options =>
+        {
+            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedPhoneNumber = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            options.Password.RequireDigit = false;
+            options.Password.RequiredLength = 4;
+            options.Password.RequireNonAlphanumeric = false;
+
+            options.User.RequireUniqueEmail = false;          
+            options.User.AllowedUserNameCharacters += "@.";
+        }).AddEntityFrameworkStores<AppDbContext>()
+          .AddErrorDescriber<PersianIdentityErrorDescriber>();
 
 
 var app = builder.Build();

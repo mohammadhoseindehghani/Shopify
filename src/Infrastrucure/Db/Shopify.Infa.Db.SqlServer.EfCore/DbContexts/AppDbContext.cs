@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Shopify.Domain.Core.CartAgg.Entities;
 using Shopify.Domain.Core.CategoryAgg.Entities;
 using Shopify.Domain.Core.OrderAgg.Entities;
@@ -9,10 +11,10 @@ using Shopify.Infa.Db.SqlServer.EfCore.EntityConfigurations;
 
 namespace Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User,IdentityRole<int>,int>(options)
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; } 
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
