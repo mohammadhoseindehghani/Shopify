@@ -16,5 +16,4 @@ public interface IUserRepository
     Task DeductBalance(int userId, decimal amount, CancellationToken cancellationToken);
     Task<int> UserCount(CancellationToken cancellationToken);
     Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken);
-    Task<bool> Register(RegisterUserDto userDto, CancellationToken cancellationToken);
 }

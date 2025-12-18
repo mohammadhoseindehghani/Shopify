@@ -89,14 +89,14 @@ builder.Services.AddScoped<IFileService, FileService>();
 
 
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Login";
-        options.AccessDeniedPath = "/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromDays(30);
-        options.SlidingExpiration = true;
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/Login";
+//        options.AccessDeniedPath = "/AccessDenied";
+//        options.ExpireTimeSpan = TimeSpan.FromDays(30);
+//        options.SlidingExpiration = true;
+//    });
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(
         options =>
@@ -111,9 +111,10 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(
             options.Password.RequiredLength = 4;
             options.Password.RequireNonAlphanumeric = false;
 
-            options.User.RequireUniqueEmail = false;          
+            options.User.RequireUniqueEmail = false;
             options.User.AllowedUserNameCharacters += "@.";
-        }).AddEntityFrameworkStores<AppDbContext>()
+        }).AddDefaultTokenProviders()
+          .AddEntityFrameworkStores<AppDbContext>()
           .AddErrorDescriber<PersianIdentityErrorDescriber>();
 
 
@@ -131,6 +132,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

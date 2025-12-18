@@ -23,7 +23,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
-                Role = u.Role
+                //Role = u.Role
             })
             .FirstOrDefaultAsync(cancellationToken);
     }
@@ -42,7 +42,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
-                Role = u.Role
+                //Role = u.Role
             })
             .FirstOrDefaultAsync(cansCancellationToken);
     }
@@ -60,7 +60,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
-                Role = u.Role
+                //Role = u.Role
             })
             .ToListAsync(cancellationToken);
     }
@@ -83,7 +83,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
             PhoneNumber = userDto.Phone,
             PasswordHash = userDto.Password,
             ImgUrl = userDto.ImgUrl,
-            Role = RoleEnum.Customer,
+            //Role = RoleEnum.Customer,
             IsActive = false
         };
         context.Users.Add(user);
@@ -120,7 +120,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
-                Role = u.Role,
+                //Role = u.Role,
                 PasswordHash = u.PasswordHash
             })
             .FirstOrDefaultAsync(cancellationToken);
@@ -155,24 +155,9 @@ public class UserRepository(AppDbContext context) : IUserRepository
                 ImgUrl = u.ImgUrl,
                 IsActive = u.IsActive,
                 Balance = u.Balance,
-                Role = u.Role,
+                //Role = u.Role,
                 Created = u.CreatedAt,
                 OrderCount = u.Orders.Count()
             }).FirstOrDefaultAsync(cancellationToken);
-    }
-
-    public async Task<bool> Register(RegisterUserDto userDto, CancellationToken cancellationToken)
-    {
-        var user = new User()
-        {
-            FirstName = userDto.FirstName,
-            LastName = userDto.LastName,
-            PhoneNumber = userDto.Phone,
-            PasswordHash = userDto.Password,
-            Role = RoleEnum.Customer,
-            IsActive = true
-        };
-        context.Add(user);
-        return await context.SaveChangesAsync(cancellationToken) > 0;
     }
 }

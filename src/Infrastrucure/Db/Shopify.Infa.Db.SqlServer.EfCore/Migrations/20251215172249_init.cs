@@ -37,9 +37,8 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GetDate()"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -388,14 +387,14 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Balance", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "ImgUrl", "IsActive", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Role", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Balance", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "ImgUrl", "IsActive", "IsDeleted", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, 0m, "abf5e7e0-5745-4907-b1a9-19a355a4062b", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@shop.com", false, "Admin", "default.jpg", false, false, "User", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000001", false, 3, null, false, null },
-                    { 2, 0, 0m, "3e8c53a4-555f-42e0-9946-ad7f47f74f08", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "operator@shop.com", false, "Operator", "default.jpg", false, false, "User", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000002", false, 2, null, false, null },
-                    { 3, 0, 0m, "88de6762-f2d3-4fd3-bdc3-7a1fff0b730e", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user1@gmail.com", false, "Ali", "default.jpg", false, false, "Ahmadi", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000003", false, 1, null, false, null },
-                    { 4, 0, 0m, "a9c75bb5-bb87-4981-8cc3-02186a4eaacb", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user2@gmail.com", false, "Reza", "default.jpg", false, false, "Moradi", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000004", false, 1, null, false, null },
-                    { 5, 0, 0m, "22ccd121-5340-4016-8396-89b0bd59c869", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user3@gmail.com", false, "Sara", "default.jpg", false, false, "Karimi", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000005", false, 1, null, false, null }
+                    { 1, 0, 0m, "0409474a-f88b-40d8-b99a-293b1c94855b", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@shop.com", false, "Admin", "default.jpg", false, false, "User", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000001", false, null, false, null },
+                    { 2, 0, 0m, "08ccda06-d076-4fbc-b5e0-0537c7b39082", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "operator@shop.com", false, "Operator", "default.jpg", false, false, "User", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000002", false, null, false, null },
+                    { 3, 0, 0m, "1b23aee1-2ec8-479e-b424-2e38a583c024", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user1@gmail.com", true, "Ali", "default.jpg", false, false, "Ahmadi", false, null, "USER1@GMAIL.COM", "09120000003", "AQAAAAIAAYagAAAAEM+r3IaOS3AtujPhWt60MI6fjTKd4uoOf5a+9OV/33T6yFNGPOzSGW+ECsxz/etlfw==", "09120000003", true, "faf25c8b-87c3-4b41-ade3-0055c2fe6580", false, "09120000003" },
+                    { 4, 0, 0m, "aaff5523-77f5-493e-ad92-5e76c16af58a", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user2@gmail.com", false, "Reza", "default.jpg", false, false, "Moradi", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000004", false, null, false, null },
+                    { 5, 0, 0m, "43a126c3-3682-41c7-a5d3-819288809676", new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "user3@gmail.com", false, "Sara", "default.jpg", false, false, "Karimi", false, null, null, null, "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=", "09120000005", false, null, false, null }
                 });
 
             migrationBuilder.InsertData(

@@ -26,8 +26,4 @@
     <ProjectReference Include="..\..\Infrastrucure\Db\Shopify.Infa.Db.SqlServer.EfCore\Shopify.Infa.Db.SqlServer.EfCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Area\User\" />
-  </ItemGroup>
-
 </Project>

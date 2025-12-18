@@ -12,8 +12,8 @@ using Shopify.Infa.Db.SqlServer.EfCore.DbContexts;
 namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251213125037_nullable imgUrl")]
-    partial class nullableimgUrl
+    [Migration("20251215172249_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1021,9 +1021,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -1052,7 +1049,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "a5fc9afd-f1fe-498c-b9a1-b2a04531780e",
+                            ConcurrencyStamp = "0409474a-f88b-40d8-b99a-293b1c94855b",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@shop.com",
                             EmailConfirmed = false,
@@ -1065,7 +1062,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                             PhoneNumber = "09120000001",
                             PhoneNumberConfirmed = false,
-                            Role = 3,
                             TwoFactorEnabled = false
                         },
                         new
@@ -1073,7 +1069,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 2,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "cd53dc57-10f0-4874-87a6-db8f7aafb7ec",
+                            ConcurrencyStamp = "08ccda06-d076-4fbc-b5e0-0537c7b39082",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "operator@shop.com",
                             EmailConfirmed = false,
@@ -1086,7 +1082,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                             PhoneNumber = "09120000002",
                             PhoneNumberConfirmed = false,
-                            Role = 2,
                             TwoFactorEnabled = false
                         },
                         new
@@ -1094,28 +1089,31 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 3,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "fda1dc66-8e01-4aa5-832e-da5caa5af53a",
+                            ConcurrencyStamp = "1b23aee1-2ec8-479e-b424-2e38a583c024",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user1@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Ali",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "Ahmadi",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "USER1@GMAIL.COM",
+                            NormalizedUserName = "09120000003",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM+r3IaOS3AtujPhWt60MI6fjTKd4uoOf5a+9OV/33T6yFNGPOzSGW+ECsxz/etlfw==",
                             PhoneNumber = "09120000003",
-                            PhoneNumberConfirmed = false,
-                            Role = 1,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "faf25c8b-87c3-4b41-ade3-0055c2fe6580",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000003"
                         },
                         new
                         {
                             Id = 4,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "8ab6757b-12e5-4164-80b5-55f6e2afc824",
+                            ConcurrencyStamp = "aaff5523-77f5-493e-ad92-5e76c16af58a",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@gmail.com",
                             EmailConfirmed = false,
@@ -1128,7 +1126,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                             PhoneNumber = "09120000004",
                             PhoneNumberConfirmed = false,
-                            Role = 1,
                             TwoFactorEnabled = false
                         },
                         new
@@ -1136,7 +1133,7 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 5,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "e7e94b75-872b-4314-8c52-f1ed7e861498",
+                            ConcurrencyStamp = "43a126c3-3682-41c7-a5d3-819288809676",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@gmail.com",
                             EmailConfirmed = false,
@@ -1149,7 +1146,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
                             PhoneNumber = "09120000005",
                             PhoneNumberConfirmed = false,
-                            Role = 1,
                             TwoFactorEnabled = false
                         });
                 });

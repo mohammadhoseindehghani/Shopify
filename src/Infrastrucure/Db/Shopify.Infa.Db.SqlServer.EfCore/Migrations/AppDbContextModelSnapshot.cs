@@ -1018,9 +1018,6 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -1049,105 +1046,120 @@ namespace Shopify.Infa.Db.SqlServer.EfCore.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "a5fc9afd-f1fe-498c-b9a1-b2a04531780e",
+                            ConcurrencyStamp = "4950b1af-41c6-411f-b400-9c6b1eed0323",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@shop.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Admin",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "User",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "ADMIN@SHOP.COM",
+                            NormalizedUserName = "09120000001",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA7UGIR4efC/g8+sP4RlqDa0+jeUvDUYc85tIFsvafUlLFCbHq9X3qWwMD1BFXgAJg==",
                             PhoneNumber = "09120000001",
-                            PhoneNumberConfirmed = false,
-                            Role = 3,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "32652055-9209-443a-a89e-d80c630b754a",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000001"
                         },
                         new
                         {
                             Id = 2,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "cd53dc57-10f0-4874-87a6-db8f7aafb7ec",
+                            ConcurrencyStamp = "9c668d3c-aa67-4959-864b-9d085e0cc148",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "operator@shop.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Operator",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "User",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "OPERATOR@SHOP.COM",
+                            NormalizedUserName = "09120000002",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJrIQxpa8LbO3USMm912RyAGtKXY9LNR8t/ukN9TdkNil52brbgGTk7kWD7UAepcpQ==",
                             PhoneNumber = "09120000002",
-                            PhoneNumberConfirmed = false,
-                            Role = 2,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "0637c884-1242-4454-bb4a-eb0a5f582b95",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000002"
                         },
                         new
                         {
                             Id = 3,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "fda1dc66-8e01-4aa5-832e-da5caa5af53a",
+                            ConcurrencyStamp = "b8058d72-3d00-4413-8ccd-2d407793b36d",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user1@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Ali",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "Ahmadi",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "USER1@GMAIL.COM",
+                            NormalizedUserName = "09120000003",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPYIC/m6xnNBIF7TtgGDjKI1iEnXQzyWpBUV2ohIcmWYjdLtbAl2X5Zw20ATEErgrg==",
                             PhoneNumber = "09120000003",
-                            PhoneNumberConfirmed = false,
-                            Role = 1,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "6c6efbac-8cc4-4e6f-a51b-eba76878142b",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000003"
                         },
                         new
                         {
                             Id = 4,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "8ab6757b-12e5-4164-80b5-55f6e2afc824",
+                            ConcurrencyStamp = "460909ea-a22a-4791-add2-8d934a4c2b63",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user2@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Reza",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "Moradi",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "USER2@GMAIL.COM",
+                            NormalizedUserName = "09120000004",
+                            PasswordHash = "AQAAAAIAAYagAAAAELdsolWU53cGEJnbu+V8tpRedF06NTcAox6LY2raua66gs/pxb4hpZe7S6vaZW9elQ==",
                             PhoneNumber = "09120000004",
-                            PhoneNumberConfirmed = false,
-                            Role = 1,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "1e562ad7-83ce-485a-b0a1-9457d08e358b",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000004"
                         },
                         new
                         {
                             Id = 5,
                             AccessFailedCount = 0,
                             Balance = 0m,
-                            ConcurrencyStamp = "e7e94b75-872b-4314-8c52-f1ed7e861498",
+                            ConcurrencyStamp = "55afe35e-de4f-4fa0-a812-6904f3cbc3c0",
                             CreatedAt = new DateTime(2025, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user3@gmail.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Sara",
                             ImgUrl = "default.jpg",
                             IsActive = false,
                             IsDeleted = false,
                             LastName = "Karimi",
                             LockoutEnabled = false,
-                            PasswordHash = "Ntbi9dzykpCIkY2SS2CsAA==:1ILjnLtYlBsO6QJDJ4qOlh7Ul7z1ws3SIBUEW62MEjU=",
+                            NormalizedEmail = "USER3@GMAIL.COM",
+                            NormalizedUserName = "09120000005",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPXDDhabiNQ8m3VPb7RfhUtyh7T6nl4CAj3tSvDr9EmtigSWoL5vyunogdtvZXamIA==",
                             PhoneNumber = "09120000005",
-                            PhoneNumberConfirmed = false,
-                            Role = 1,
-                            TwoFactorEnabled = false
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "3ccf0352-0c46-4125-b34f-8f354f77f34b",
+                            TwoFactorEnabled = false,
+                            UserName = "09120000005"
                         });
                 });
 

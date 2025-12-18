@@ -6,13 +6,15 @@ using Shopify.Domain.Core.UserAgg.Dto;
 using Shopify.Domain.Core.UserAgg.Entities;
 using Shopify.Domain.Core.UserAgg.Service;
 using Shopify.Framework;
+using System.Data;
 
 namespace Shopify.Domain.AppService;
 
 public class UserAppService(IUserService userService,
     ILogger<UserAppService> logger,
     SignInManager<User> signInManager,
-    UserManager<User> userManager) : IUserAppService
+    UserManager<User> userManager,
+    RoleManager<IdentityRole<int>> roleManager) : IUserAppService
 {
     public async Task<Result<UserDto>> GetById(int id, CancellationToken cancellationToken)
     {
@@ -158,5 +160,48 @@ public class UserAppService(IUserService userService,
         }
 
         return Result<UserDetailDto>.Success(user);
+    }
+    public async Task<Result<bool>> AdminChangePassword(AdminChangePasswordDto dto, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByIdAsync(dto.UserId.ToString());
+        if (user == null)
+            return Result<bool>.Failure("کاربر یافت نشد");
+
+        var token = await userManager.GeneratePasswordResetTokenAsync(user);
+
+        var result = await userManager.ResetPasswordAsync(user, token, dto.NewPassword);
+
+        if (result.Succeeded)
+        {
+            await userManager.UpdateSecurityStampAsync(user);
+
+            logger.LogWarning($"ادمین رمز عبور کاربر {dto.UserId} را تغییر داد");
+            return Result<bool>.Success(true, "رمز عبور کاربر با موفقیت تغییر یافت");
+        }
+
+        var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+        return Result<bool>.Failure(errors);
+    }
+    public async Task<Result<bool>> ChangePassword(int userId, ChangePasswordDto dto, CancellationToken cancellationToken)
+    {
+        if (dto.NewPassword != dto.ConfirmNewPassword)
+            return Result<bool>.Failure("رمز جدید و تکرار آن مطابقت ندارند");
+
+        var user = await userManager.FindByIdAsync(userId.ToString());
+        if (user == null)
+            return Result<bool>.Failure("کاربر یافت نشد");
+
+        var result = await userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+
+        if (result.Succeeded)
+        {
+            await signInManager.RefreshSignInAsync(user);
+
+            logger.LogInformation($"کاربر {userId} با موفقیت رمز عبور خود را تغییر داد");
+            return Result<bool>.Success(true, "رمز عبور با موفقیت تغییر یافت");
+        }
+
+        var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+        return Result<bool>.Failure(errors);
     }
 }

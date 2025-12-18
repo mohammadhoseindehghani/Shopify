@@ -10,7 +10,7 @@ public class User : IdentityUser<int>
     public bool IsActive { get; set; }
     public string? ImgUrl { get; set; }
     public decimal Balance { get; set; }
-    public RoleEnum Role { get; set; }
+    //public RoleEnum Role { get; set; }
     public DateTime CreatedAt { get; set; }
     public bool IsDeleted { get; set; } = false;
     public ICollection<Address> Addresses { get; set; }
