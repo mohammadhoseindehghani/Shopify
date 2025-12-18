@@ -20,4 +20,6 @@ public interface IUserAppService
     Task<Result<UserDetailDto>> GetUserDetail(int id, CancellationToken cancellationToken);
     Task<Result<bool>> AdminChangePassword(AdminChangePasswordDto dto, CancellationToken cancellationToken);
     Task<Result<bool>> ChangePassword(int userId, ChangePasswordDto dto, CancellationToken cancellationToken);
+    Task<Result<bool>> Edit(int id, EditUserDto editDto, CancellationToken cancellationToken);
+
 }

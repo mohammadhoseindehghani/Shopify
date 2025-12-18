@@ -60,5 +60,4 @@ public class UserService(IUserRepository userRepository) : IUserService
         return await userRepository.GetUserDetail(id, cancellationToken);
     }
 
-
 }

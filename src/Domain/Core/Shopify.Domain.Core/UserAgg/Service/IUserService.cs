@@ -15,4 +15,5 @@ public interface IUserService
     Task<UserWithPasswordDto?> GetByPhoneForLogin(string phone, CancellationToken cancellationToken);
     Task<int> UserCount(CancellationToken cancellationToken);
     Task<UserDetailDto?> GetUserDetail(int id, CancellationToken cancellationToken);
+    //Task<bool> Edit(int id, EditUserDto editDto, CancellationToken cancellationToken);
 }

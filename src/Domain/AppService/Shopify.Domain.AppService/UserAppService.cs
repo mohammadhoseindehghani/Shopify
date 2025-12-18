@@ -23,9 +23,7 @@ public class UserAppService(IUserService userService,
         {
             return Result<UserDto>.Failure("با این نام کاربری کاربری یافت نشد");
         }
-
         return Result<UserDto>.Success(user);
-
     }
 
     public async Task<Result<UserDto>> GetByPhone(string phone, CancellationToken cansCancellationToken)
@@ -203,5 +201,45 @@ public class UserAppService(IUserService userService,
 
         var errors = string.Join(", ", result.Errors.Select(e => e.Description));
         return Result<bool>.Failure(errors);
+    }
+
+    public async Task<Result<bool>> Edit(int id, EditUserDto editDto, CancellationToken cancellationToken)
+    {
+        var user = await userManager.FindByIdAsync(id.ToString());
+
+        if (user == null)
+        {
+            return Result<bool>.Failure("کاربر مورد نظر یافت نشد.");
+        }
+
+        user.FirstName = editDto.FirstName;
+        user.LastName = editDto.LastName;
+        user.ImgUrl = editDto.ImgUrl;
+
+        user.PhoneNumber = editDto.PhoneNumber;
+
+        if (user.Email != editDto.Email)
+        {
+            var existingUser = await userManager.FindByEmailAsync(editDto.Email);
+            if (existingUser != null && existingUser.Id != id)
+            {
+                return Result<bool>.Failure("این ایمیل قبلاً توسط کاربر دیگری ثبت شده است.");
+            }
+
+            user.Email = editDto.Email;
+            user.UserName = editDto.Email; 
+
+            user.EmailConfirmed = false;
+        }
+
+        var result = await userManager.UpdateAsync(user);
+
+        if (!result.Succeeded)
+        {
+            var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+            return Result<bool>.Failure($"ویرایش انجام نشد: {errors}");
+        }
+
+        return Result<bool>.Success(true);
     }
 }
